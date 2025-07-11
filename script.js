@@ -1,381 +1,310 @@
-{\rtf1\ansi\ansicpg1252\cocoartf2822
-\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;}
-{\colortbl;\red255\green255\blue255;\red109\green115\blue120;\red23\green24\blue24;\red202\green202\blue202;
-\red183\green111\blue247;\red212\green212\blue212;\red113\green192\blue131;\red54\green192\blue160;\red246\green124\blue48;
-}
-{\*\expandedcolortbl;;\cssrgb\c50196\c52549\c54510;\cssrgb\c11765\c12157\c12549;\cssrgb\c83137\c83137\c83137;
-\cssrgb\c77255\c54118\c97647;\cssrgb\c86275\c86275\c86275;\cssrgb\c50588\c78824\c58431;\cssrgb\c23922\c78824\c69020;\cssrgb\c98039\c56471\c24314;
-}
-\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
-\deftab720
-\pard\pardeftab720\partightenfactor0
+// Helper function to parse time strings (e.g., "8:30 PM") into 24-hour format
+function parseTime(timeStr) {
+    const [time, ampm] = timeStr.split(' ');
+    let [hours, minutes] = time.split(':').map(Number);
 
-\f0\fs28 \cf2 \cb3 \expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 // Helper function to parse time strings (e.g., "8:30 PM") into 24-hour format\cf4 \cb1 \strokec4 \
-\pard\pardeftab720\partightenfactor0
-\cf5 \cb3 \strokec5 function\cf4 \strokec4  parseTime\cf6 \strokec6 (\cf4 \strokec4 timeStr\cf6 \strokec6 )\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
-\pard\pardeftab720\partightenfactor0
-\cf4 \cb3 \strokec4     \cf5 \strokec5 const\cf4 \strokec4  \cf6 \strokec6 [\cf4 \strokec4 time\cf6 \strokec6 ,\cf4 \strokec4  ampm\cf6 \strokec6 ]\cf4 \strokec4  \cf6 \strokec6 =\cf4 \strokec4  timeStr\cf6 \strokec6 .\cf4 \strokec4 split\cf6 \strokec6 (\cf7 \strokec7 ' '\cf6 \strokec6 );\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     \cf5 \strokec5 let\cf4 \strokec4  \cf6 \strokec6 [\cf4 \strokec4 hours\cf6 \strokec6 ,\cf4 \strokec4  minutes\cf6 \strokec6 ]\cf4 \strokec4  \cf6 \strokec6 =\cf4 \strokec4  time\cf6 \strokec6 .\cf4 \strokec4 split\cf6 \strokec6 (\cf7 \strokec7 ':'\cf6 \strokec6 ).\cf4 \strokec4 map\cf6 \strokec6 (\cf8 \strokec8 Number\cf6 \strokec6 );\cf4 \cb1 \strokec4 \
-\
-\cf4 \cb3 \strokec4     \cf5 \strokec5 if\cf4 \strokec4  \cf6 \strokec6 (\cf4 \strokec4 ampm \cf6 \strokec6 ===\cf4 \strokec4  \cf7 \strokec7 'PM'\cf4 \strokec4  \cf6 \strokec6 &&\cf4 \strokec4  hours \cf6 \strokec6 !==\cf4 \strokec4  \cf9 \strokec9 12\cf6 \strokec6 )\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         hours \cf6 \strokec6 +=\cf4 \strokec4  \cf9 \strokec9 12\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     \cf6 \strokec6 \}\cf4 \strokec4  \cf5 \strokec5 else\cf4 \strokec4  \cf5 \strokec5 if\cf4 \strokec4  \cf6 \strokec6 (\cf4 \strokec4 ampm \cf6 \strokec6 ===\cf4 \strokec4  \cf7 \strokec7 'AM'\cf4 \strokec4  \cf6 \strokec6 &&\cf4 \strokec4  hours \cf6 \strokec6 ===\cf4 \strokec4  \cf9 \strokec9 12\cf6 \strokec6 )\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \strokec4  \cf2 \strokec2 // Midnight (12 AM)\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         hours \cf6 \strokec6 =\cf4 \strokec4  \cf9 \strokec9 0\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     \cf6 \strokec6 \}\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     \cf5 \strokec5 return\cf4 \strokec4  hours \cf6 \strokec6 +\cf4 \strokec4  minutes \cf6 \strokec6 /\cf4 \strokec4  \cf9 \strokec9 60\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
-\pard\pardeftab720\partightenfactor0
-\cf6 \cb3 \strokec6 \}\cf4 \cb1 \strokec4 \
-\
-\pard\pardeftab720\partightenfactor0
-\cf2 \cb3 \strokec2 // Array containing all event data, now with location property\cf4 \cb1 \strokec4 \
-\pard\pardeftab720\partightenfactor0
-\cf5 \cb3 \strokec5 const\cf4 \strokec4  events \cf6 \strokec6 =\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
-\pard\pardeftab720\partightenfactor0
-\cf4 \cb3 \strokec4     \cf7 \strokec7 'fri'\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 [\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '18:00 - 20:00'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Augustin Da Sambagio (Potato Head \'96 Bali)'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Socio'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 18\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 20\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Hong Kong'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '18:30 - 21:30'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Jigger & Pony (Singapore)'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'The Macallan House'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 18.5\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 21.5\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Hong Kong'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '19:00 - 21:00'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Lakeview Palace x Yong Fu x Tell Camellia Tea-Tales'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Lakeview Palace'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 19\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 21\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Macau'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '19:00 - 22:00'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Julio Bermejo & Dre Masso'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Coa'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 19\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 22\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Hong Kong'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '19:00 - 23:00'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Elliot Faber Takes Over Mizumi'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Wynn Palace Mizumi'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 19\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 23\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Macau'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '19:00 - 23:00'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Atlas (Singapore)'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Lobster Bar'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 19\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 23\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Hong Kong'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '20:00 - 23:00'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Nepal\\'s Finest: Barc | Tell Camellia | Courtroom'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Wing Lei Bar'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 20\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 23\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Macau'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '20:00 - 23:00'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Keegan McGregor\\'s World Class Takeover'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'SW Steakhouse'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 20\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 23\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Macau'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '20:00 - 23:00'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Amanda Wan (Three X Co \'96 Kuala Lumpur)'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Avoca'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 20\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 23\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Hong Kong'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '20:00 - 23:00'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Bar Us (Bangkok)'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Green Room'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 20\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 23\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Hong Kong'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '21:00 - 00:00'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Weiqin Li (Bathe Coffee)'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'The Gallery Bar Macao'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 21\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 24\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Macau'\cf4 \strokec4  \cf6 \strokec6 \}\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     \cf6 \strokec6 ],\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     \cf7 \strokec7 'sat'\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 [\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '15:00 - 17:00'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '8 Hands Industry Cocktails'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Avoca'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 15\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 17\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Hong Kong'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '17:00 - 19:00'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Panjak Balachandran & Macleigh Rey Fernandes (Boilermaker \'96 Goa)'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Bourke\\'s'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 17\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 19\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Hong Kong'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '18:00 - 20:00'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Chef Tam\\'s Seasons x Bar Mood'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Chef Tam\\'s Seasons'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 18\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 20\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Macau'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '18:00 - 20:00'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Epic (Shanghai)'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'The Old Man'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 18\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 20\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Hong Kong'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '18:30 - 21:30'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Atlas (Singapore)'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'The Macallan House'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 18.5\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 21.5\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Hong Kong'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '19:00 - 21:00'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Drunken Fish x Maybe Sammy (50 Best Signature Sessions)'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Drunken Fish'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 19\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 21\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Macau'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '19:00 - 21:00'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Wing Lei Bar Showcase: Mark Lloyd'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Wing Lei Bar'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 19\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 21\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Macau'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '19:00 - 21:00'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Marco Dongi (Bar Sathorn \'96 Bangkok)'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Ozone'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 19\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 21\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Hong Kong'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '19:00 - 23:00'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Jigger & Pony (Singapore)'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Lobster Bar'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 19\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 23\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Hong Kong'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '20:00 - 23:00'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Sober Company (Shanghai)'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Avoca'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 20\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 23\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Hong Kong'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '20:00 - 23:00'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Hideaway Bar (Goa)'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Barcode'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 20\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 23\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Hong Kong'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '20:00 - 23:00'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Shingo Sasaki (Sober Company \'96 Shanghai)'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Ritz Carlton Bar and Lounge Macau'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 20\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 23\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Macau'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '20:00 - 23:00'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Shin Lee & Ribo Lee (Bar Geranium \'96 Seoul)'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '25:00'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 20\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 23\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Hong Kong'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '20:00 - 00:00'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Santo Metodo (Zuma \'96 Bangkok)'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'The Wise King'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 20\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 24\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Hong Kong'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '20:30 - 23:30'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Dave Lam (The Dolomite \'96 Shenzhen)'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Bar Buonasera'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 20.5\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 23.5\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Hong Kong'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '20:30 - 23:30'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Pera Srisuk (The Fool Speakeasy \'96 Phuket)'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Foxglove'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 20.5\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 23.5\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Hong Kong'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '21:00 - 23:00'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Orsu Loviconi & Awaraa Awarzed'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Roucou'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 21\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 23\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Hong Kong'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '21:00 - 23:30'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Julio Bermejo & Sam Ross'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Wing Lei Bar'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 21\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 23.5\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Macau'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '21:00 - 00:00'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Paul Zhang'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'The Gallery Bar Macao'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 21\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 24\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Macau'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '22:00 - 02:00'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Bar Pop-up: Teresa Cocktail Bar x ZLB23'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Palace Reserve Club'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 22\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 26\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Macau'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '22:30 - 02:00'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Happy Accidents, PS40, Artesian Bar, Manhattan Bar'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'The Aubrey'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 22.5\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 26\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Hong Kong'\cf4 \strokec4  \cf6 \strokec6 \}\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     \cf6 \strokec6 ],\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     \cf7 \strokec7 'sun'\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 [\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '12:00 - 14:00'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Sushi Mizumi x Martiny\\'s (50 Best Signature Sessions)'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Wynn Palace Mizumi'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 12\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 14\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Macau'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '15:00 - 18:00'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Rainbow Takeover: Mostly Harmless | Artifact'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Wing Lei Bar'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 15\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 18\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Macau'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '15:00 - 18:00'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Honky Tonks Tavern | Potato Head Beach Club'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Palace Reserve Club'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 15\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 18\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Macau'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '16:00 - 19:00'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Atlas (Singapore) & Cosmo Pony (Jakarta)'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'The Opposites'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 16\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 19\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Hong Kong'\cf4 \strokec4  \cf6 \strokec6 \}\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     \cf6 \strokec6 ],\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     \cf7 \strokec7 'jul15'\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 [\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '1:00 PM - 3:00 PM'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Chef Tam\'92s Seasons x Masque x Sidecar'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Chef Tam\\'s Seasons, Wynn Palace'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 13\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 15\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Macau'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '6:00 PM - 10:00 PM'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Asia\'92s 50 Best Bars'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Wynn Palace'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 18\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 22\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Macau'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '8:30 PM - 12:30 AM'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Bar Cham x Alice x Le Chamber x Pine & Co'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Long Bar, Galaxy Hotel'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 20.5\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 24.5\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Macau'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '10:00 PM - 1:00 AM'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Bae\'92s Cocktail Club (Singapore)'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'The Diplomat'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 22\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 25\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Hong Kong'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '10:00 PM - 1:00 AM'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Taln & Aum (Bar Us \'96 Bangkok)'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Mesa Bar, THE KARL LAGERFELD'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 22\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 25\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Macau'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '10:00 PM - 12:00 AM'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Cat Bite Club (Singapore) | Reka (Kuala Lumpur)'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'St. Regis Bar Macau'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 22\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 24\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Macau'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '10:00 PM - 2:00 AM'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Official After Party: Freni e Frizioni | Vender | Bar Myung | Dead Poets'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Palace Reserve Club, Wynn Palace'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 22\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 26\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Macau'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '10:00 PM - 2:00 AM'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Nicola Lazzari & Giuseppe Destefano (1920 \'96 Dubai)'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Mesa Bar, THE KARL LAGERFELD'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 22\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 26\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Macau'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '11:00 PM - 1:00 AM'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Cat Bite Club (Singapore) | The Cocktail Club (Jakarta)'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Argo'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 23\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 25\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Hong Kong'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '11:00 PM - 3:30 AM'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Torres Brandy After Party by Hope & Sesame, Two Moons, & Night Hawk'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Moon on Planet, Studio City Macau'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 23\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 27.5\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Macau'\cf4 \strokec4  \cf6 \strokec6 \}\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     \cf6 \strokec6 ],\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     \cf7 \strokec7 'jul16'\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 [\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '12:00 AM - 2:00 AM'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Soko (Seoul) | Vesper (Bangkok)'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'St. Regis Bar Macau'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 0\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 2\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Macau'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '3:00 PM - 5:00 PM'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Wing Lei Bar Showcase: Mark Lloyd'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Wing Lei Bar, Wynn Palace'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 15\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 17\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Macau'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '4:00 PM - 7:00 PM'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Locale Firenze (Florence) | Moebius (Milan)'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Bar Leone'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 16\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 19\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Hong Kong'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '6:00 PM - 8:00 PM'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Three Cents Guest Shift'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Penicillin'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 18\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 20\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Hong Kong'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '6:00 PM - 9:00 PM'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Soko & One (Bar Soko \'96 Seoul)'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'The Old Man'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 18\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 21\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Hong Kong'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '7:00 PM - 11:00 PM'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Wayne \uc0\u23433 \u23041  (Bar Hide \'96 Taoyuan)'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Bar De Luxe'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 19\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 23\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Hong Kong'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '7:00 PM - 11:00 PM'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Ale May (Iron Balls \'96 Bangkok)'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Paragon'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 19\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 23\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Hong Kong'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '7:00 PM - 11:00 PM'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Terry, Mason, Halim, and Eggsy (Alice Cheongdam \'96 Seoul)'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Soho House'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 19\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 23\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Hong Kong'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '8:00 PM - 11:00 PM'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Seven Yi (Room by Le Kief \'96 Taipei) & Hiroyasu Kayama (Bar Benfiddich \'96 Tokyo)'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'The Opposites'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 20\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 23\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Hong Kong'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '8:00 PM - 11:00 PM'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Jerrold Khoo & Cyrus Wang (Stay Gold \'96 Singapore)'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Kinsman'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 20\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 23\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Hong Kong'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '8:00 PM - 11:00 PM'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Handshake Speakeasy (CDMX)'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Gokan'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 20\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 23\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Hong Kong'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '8:00 PM - 11:00 PM'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Backdoor Bodega (Penang)'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Tell Camellia'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 20\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 23\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Hong Kong'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '8:00 PM - 11:00 PM'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Bar Bud (Shanghai)'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Barcode'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 20\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 23\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Hong Kong'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '8:00 PM - 11:00 PM'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Rabbit Hole \'96 Bangkok'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Dead Poets'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 20\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 23\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Hong Kong'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '8:00 PM - 11:00 PM'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Roy & Jude (Pomme Bar \'96 Seoul)'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Orchard'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 20\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 23\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Hong Kong'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '8:00 PM - 11:00 PM'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Shaken & Sung'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'The Green Door'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 20\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 23\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Hong Kong'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '9:00 PM - 11:30 PM'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Erika & Gabriel (Cat Bite Club \'96 Singapore)'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'The Old Man'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 21\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 23.5\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Hong Kong'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '9:00 PM - 12:00 AM'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Kei Takahashi & Michito Kaneko (Lamp Bar \'96 Nara)'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Uncle Ming\\'s'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 21\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 24\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Hong Kong'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '9:00 PM - 1:00 AM'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Yong Wei (Native \'96 Singapore)'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Bar Patua'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 21\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 25\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Macau'\cf4 \strokec4  \cf6 \strokec6 \}\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     \cf6 \strokec6 ],\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     \cf7 \strokec7 'jul17'\cf6 \strokec6 :\cf4 \strokec4  \cf6 \strokec6 [\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '2:00 PM - 3:00 PM'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Three Cents Master Class'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Taqueria Super Macho'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 14\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 15\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Hong Kong'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '6:00 PM - 8:00 PM'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Malt + Mixology Space (Seoul)'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Lobster Bar'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 18\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 20\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Hong Kong'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '7:00 PM - 11:00 PM'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Austen (Blotto)'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Not 2 Sweet'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 19\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 23\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Hong Kong'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '8:00 PM - 10:00 PM'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Bar Cham (Seoul)'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Lobster Bar'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 20\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 22\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Hong Kong'\cf4 \strokec4  \cf6 \strokec6 \},\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \{\cf4 \strokec4  time\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 '8:00 PM - 11:00 PM'\cf6 \strokec6 ,\cf4 \strokec4  event\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Ngo Kim Uyen (Ne \'96 Hanoi) | Lam Duc Anh (Stir \'96 HCMC)'\cf6 \strokec6 ,\cf4 \strokec4  venue\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Ritz Carlton Bar and Lounge Macau'\cf6 \strokec6 ,\cf4 \strokec4  start\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 20\cf6 \strokec6 ,\cf4 \strokec4  end\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 23\cf6 \strokec6 ,\cf4 \strokec4  location\cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'Macau'\cf4 \strokec4  \cf6 \strokec6 \}\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     \cf6 \strokec6 ]\cf4 \cb1 \strokec4 \
-\pard\pardeftab720\partightenfactor0
-\cf6 \cb3 \strokec6 \};\cf4 \cb1 \strokec4 \
-\
-\pard\pardeftab720\partightenfactor0
-\cf5 \cb3 \strokec5 const\cf4 \strokec4  timetableDisplay \cf6 \strokec6 =\cf4 \strokec4  document\cf6 \strokec6 .\cf4 \strokec4 getElementById\cf6 \strokec6 (\cf7 \strokec7 'timetable-display'\cf6 \strokec6 );\cf4 \cb1 \strokec4 \
-\cf5 \cb3 \strokec5 const\cf4 \strokec4  btnFri \cf6 \strokec6 =\cf4 \strokec4  document\cf6 \strokec6 .\cf4 \strokec4 getElementById\cf6 \strokec6 (\cf7 \strokec7 'btn-fri'\cf6 \strokec6 );\cf4 \cb1 \strokec4 \
-\cf5 \cb3 \strokec5 const\cf4 \strokec4  btnSat \cf6 \strokec6 =\cf4 \strokec4  document\cf6 \strokec6 .\cf4 \strokec4 getElementById\cf6 \strokec6 (\cf7 \strokec7 'btn-sat'\cf6 \strokec6 );\cf4 \cb1 \strokec4 \
-\cf5 \cb3 \strokec5 const\cf4 \strokec4  btnSun \cf6 \strokec6 =\cf4 \strokec4  document\cf6 \strokec6 .\cf4 \strokec4 getElementById\cf6 \strokec6 (\cf7 \strokec7 'btn-sun'\cf6 \strokec6 );\cf4 \cb1 \strokec4 \
-\cf5 \cb3 \strokec5 const\cf4 \strokec4  btnJul15 \cf6 \strokec6 =\cf4 \strokec4  document\cf6 \strokec6 .\cf4 \strokec4 getElementById\cf6 \strokec6 (\cf7 \strokec7 'btn-jul15'\cf6 \strokec6 );\cf4 \cb1 \strokec4 \
-\cf5 \cb3 \strokec5 const\cf4 \strokec4  btnJul16 \cf6 \strokec6 =\cf4 \strokec4  document\cf6 \strokec6 .\cf4 \strokec4 getElementById\cf6 \strokec6 (\cf7 \strokec7 'btn-jul16'\cf6 \strokec6 );\cf4 \cb1 \strokec4 \
-\cf5 \cb3 \strokec5 const\cf4 \strokec4  btnJul17 \cf6 \strokec6 =\cf4 \strokec4  document\cf6 \strokec6 .\cf4 \strokec4 getElementById\cf6 \strokec6 (\cf7 \strokec7 'btn-jul17'\cf6 \strokec6 );\cf4 \cb1 \strokec4 \
-\
-\cf5 \cb3 \strokec5 const\cf4 \strokec4  btnHK \cf6 \strokec6 =\cf4 \strokec4  document\cf6 \strokec6 .\cf4 \strokec4 getElementById\cf6 \strokec6 (\cf7 \strokec7 'btn-hk'\cf6 \strokec6 );\cf4 \cb1 \strokec4 \
-\cf5 \cb3 \strokec5 const\cf4 \strokec4  btnMacau \cf6 \strokec6 =\cf4 \strokec4  document\cf6 \strokec6 .\cf4 \strokec4 getElementById\cf6 \strokec6 (\cf7 \strokec7 'btn-macau'\cf6 \strokec6 );\cf4 \cb1 \strokec4 \
-\
-\cf5 \cb3 \strokec5 let\cf4 \strokec4  currentDay \cf6 \strokec6 =\cf4 \strokec4  \cf7 \strokec7 'jul16'\cf6 \strokec6 ;\cf4 \strokec4  \cf2 \strokec2 // Default to July 16\cf4 \cb1 \strokec4 \
-\cf5 \cb3 \strokec5 let\cf4 \strokec4  currentLocation \cf6 \strokec6 =\cf4 \strokec4  \cf7 \strokec7 'Hong Kong'\cf6 \strokec6 ;\cf4 \strokec4  \cf2 \strokec2 // Default to Hong Kong\cf4 \cb1 \strokec4 \
-\
-\pard\pardeftab720\partightenfactor0
-\cf2 \cb3 \strokec2 // Function to render the timetable for a given day and location filter\cf4 \cb1 \strokec4 \
-\pard\pardeftab720\partightenfactor0
-\cf5 \cb3 \strokec5 function\cf4 \strokec4  renderTimetable\cf6 \strokec6 (\cf4 \strokec4 dayEvents\cf6 \strokec6 ,\cf4 \strokec4  dayName\cf6 \strokec6 ,\cf4 \strokec4  locationFilter\cf6 \strokec6 ,\cf4 \strokec4  minHour\cf6 \strokec6 ,\cf4 \strokec4  maxHour\cf6 \strokec6 )\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
-\pard\pardeftab720\partightenfactor0
-\cf4 \cb3 \strokec4     \cf5 \strokec5 let\cf4 \strokec4  filteredEvents \cf6 \strokec6 =\cf4 \strokec4  dayEvents\cf6 \strokec6 .\cf4 \strokec4 filter\cf6 \strokec6 (\cf4 \strokec4 event \cf6 \strokec6 =>\cf4 \strokec4  event\cf6 \strokec6 .\cf4 \strokec4 location \cf6 \strokec6 ===\cf4 \strokec4  locationFilter\cf6 \strokec6 );\cf4 \cb1 \strokec4 \
-\
-\cf4 \cb3 \strokec4     \cf2 \strokec2 // If no events for the selected filter, show a message\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     \cf5 \strokec5 if\cf4 \strokec4  \cf6 \strokec6 (\cf4 \strokec4 filteredEvents\cf6 \strokec6 .\cf4 \strokec4 length \cf6 \strokec6 ===\cf4 \strokec4  \cf9 \strokec9 0\cf6 \strokec6 )\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         timetableDisplay\cf6 \strokec6 .\cf4 \strokec4 innerHTML \cf6 \strokec6 =\cf4 \strokec4  \cf7 \strokec7 `\cf4 \cb1 \strokec4 \
-\pard\pardeftab720\partightenfactor0
-\cf7 \cb3 \strokec7             <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">\cf6 \strokec6 $\{\cf4 \strokec4 dayName\cf6 \strokec6 \}\cf7 \strokec7 </h2>\cf4 \cb1 \strokec4 \
-\cf7 \cb3 \strokec7             <p class="text-gray-600 text-center text-lg mt-8">No events found for \cf6 \strokec6 $\{\cf4 \strokec4 locationFilter\cf6 \strokec6 \}\cf7 \strokec7  on this day.</p>\cf4 \cb1 \strokec4 \
-\cf7 \cb3 \strokec7         `\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
-\pard\pardeftab720\partightenfactor0
-\cf4 \cb3 \strokec4         \cf5 \strokec5 return\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     \cf6 \strokec6 \}\cf4 \cb1 \strokec4 \
-\
-\cf4 \cb3 \strokec4     \cf5 \strokec5 let\cf4 \strokec4  html \cf6 \strokec6 =\cf4 \strokec4  \cf7 \strokec7 `\cf4 \cb1 \strokec4 \
-\pard\pardeftab720\partightenfactor0
-\cf7 \cb3 \strokec7         <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">\cf6 \strokec6 $\{\cf4 \strokec4 dayName\cf6 \strokec6 \}\cf7 \strokec7  - \cf6 \strokec6 $\{\cf4 \strokec4 locationFilter\cf6 \strokec6 \}\cf7 \strokec7  Events</h2>\cf4 \cb1 \strokec4 \
-\cf7 \cb3 \strokec7         <div class="time-axis">\cf4 \cb1 \strokec4 \
-\cf7 \cb3 \strokec7     `\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
-\
-\pard\pardeftab720\partightenfactor0
-\cf4 \cb3 \strokec4     \cf2 \strokec2 // Generate time axis labels based on minHour and maxHour\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     \cf5 \strokec5 for\cf4 \strokec4  \cf6 \strokec6 (\cf5 \strokec5 let\cf4 \strokec4  h \cf6 \strokec6 =\cf4 \strokec4  minHour\cf6 \strokec6 ;\cf4 \strokec4  h \cf6 \strokec6 <=\cf4 \strokec4  maxHour\cf6 \strokec6 ;\cf4 \strokec4  h\cf6 \strokec6 ++)\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf5 \strokec5 let\cf4 \strokec4  hourLabel\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf5 \strokec5 if\cf4 \strokec4  \cf6 \strokec6 (\cf4 \strokec4 h \cf6 \strokec6 ===\cf4 \strokec4  \cf9 \strokec9 24\cf6 \strokec6 )\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4             hourLabel \cf6 \strokec6 =\cf4 \strokec4  \cf7 \strokec7 '12 AM'\cf6 \strokec6 ;\cf4 \strokec4  \cf2 \strokec2 // Midnight of the current day\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \}\cf4 \strokec4  \cf5 \strokec5 else\cf4 \strokec4  \cf5 \strokec5 if\cf4 \strokec4  \cf6 \strokec6 (\cf4 \strokec4 h \cf6 \strokec6 >\cf4 \strokec4  \cf9 \strokec9 24\cf6 \strokec6 )\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4             hourLabel \cf6 \strokec6 =\cf4 \strokec4  \cf7 \strokec7 `\cf6 \strokec6 $\{\cf4 \strokec4 h \cf6 \strokec6 -\cf4 \strokec4  \cf9 \strokec9 24\cf6 \strokec6 \}\cf7 \strokec7  AM (Next)`\cf6 \strokec6 ;\cf4 \strokec4  \cf2 \strokec2 // Hours into the next day\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \}\cf4 \strokec4  \cf5 \strokec5 else\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4             hourLabel \cf6 \strokec6 =\cf4 \strokec4  h \cf6 \strokec6 %\cf4 \strokec4  \cf9 \strokec9 12\cf4 \strokec4  \cf6 \strokec6 ===\cf4 \strokec4  \cf9 \strokec9 0\cf4 \strokec4  \cf6 \strokec6 ?\cf4 \strokec4  \cf9 \strokec9 12\cf4 \strokec4  \cf6 \strokec6 :\cf4 \strokec4  h \cf6 \strokec6 %\cf4 \strokec4  \cf9 \strokec9 12\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4             hourLabel \cf6 \strokec6 +=\cf4 \strokec4  h \cf6 \strokec6 <\cf4 \strokec4  \cf9 \strokec9 12\cf4 \strokec4  \cf6 \strokec6 ?\cf4 \strokec4  \cf7 \strokec7 ' AM'\cf4 \strokec4  \cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 ' PM'\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf6 \strokec6 \}\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         html \cf6 \strokec6 +=\cf4 \strokec4  \cf7 \strokec7 `<div class="time-label">\cf6 \strokec6 $\{\cf4 \strokec4 hourLabel\cf6 \strokec6 \}\cf7 \strokec7 </div>`\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     \cf6 \strokec6 \}\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     html \cf6 \strokec6 +=\cf4 \strokec4  \cf7 \strokec7 `</div><div class="relative pt-4">`\cf6 \strokec6 ;\cf4 \strokec4  \cf2 \strokec2 // Add padding top here to ensure event blocks don't overlap with time axis\cf4 \cb1 \strokec4 \
-\
-\cf4 \cb3 \strokec4     \cf2 \strokec2 // Sort events by their start time to ensure proper rendering\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     filteredEvents\cf6 \strokec6 .\cf4 \strokec4 sort\cf6 \strokec6 ((\cf4 \strokec4 a\cf6 \strokec6 ,\cf4 \strokec4  b\cf6 \strokec6 )\cf4 \strokec4  \cf6 \strokec6 =>\cf4 \strokec4  a\cf6 \strokec6 .\cf4 \strokec4 start \cf6 \strokec6 -\cf4 \strokec4  b\cf6 \strokec6 .\cf4 \strokec4 start\cf6 \strokec6 );\cf4 \cb1 \strokec4 \
-\
-\cf4 \cb3 \strokec4     \cf2 \strokec2 // Calculate overall duration for scaling\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     \cf5 \strokec5 const\cf4 \strokec4  totalDuration \cf6 \strokec6 =\cf4 \strokec4  maxHour \cf6 \strokec6 -\cf4 \strokec4  minHour\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     \cf5 \strokec5 const\cf4 \strokec4  hourWidth \cf6 \strokec6 =\cf4 \strokec4  \cf9 \strokec9 100\cf4 \strokec4  \cf6 \strokec6 /\cf4 \strokec4  totalDuration\cf6 \strokec6 ;\cf4 \strokec4  \cf2 \strokec2 // Percentage width for one hour\cf4 \cb1 \strokec4 \
-\
-\cf4 \cb3 \strokec4     \cf2 \strokec2 // Render each event as a block\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     filteredEvents\cf6 \strokec6 .\cf4 \strokec4 forEach\cf6 \strokec6 (\cf4 \strokec4 event \cf6 \strokec6 =>\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf5 \strokec5 const\cf4 \strokec4  startTimeOffset \cf6 \strokec6 =\cf4 \strokec4  event\cf6 \strokec6 .\cf4 \strokec4 start \cf6 \strokec6 -\cf4 \strokec4  minHour\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf5 \strokec5 const\cf4 \strokec4  duration \cf6 \strokec6 =\cf4 \strokec4  event\cf6 \strokec6 .\cf4 \strokec4 end \cf6 \strokec6 -\cf4 \strokec4  event\cf6 \strokec6 .\cf4 \strokec4 start\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf5 \strokec5 const\cf4 \strokec4  leftPosition \cf6 \strokec6 =\cf4 \strokec4  startTimeOffset \cf6 \strokec6 *\cf4 \strokec4  hourWidth\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf5 \strokec5 const\cf4 \strokec4  width \cf6 \strokec6 =\cf4 \strokec4  duration \cf6 \strokec6 *\cf4 \strokec4  hourWidth\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
-\
-\cf4 \cb3 \strokec4         \cf2 \strokec2 // Ensure width and leftPosition are within valid range (0-100%)\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf5 \strokec5 const\cf4 \strokec4  safeLeft \cf6 \strokec6 =\cf4 \strokec4  \cf8 \strokec8 Math\cf6 \strokec6 .\cf4 \strokec4 max\cf6 \strokec6 (\cf9 \strokec9 0\cf6 \strokec6 ,\cf4 \strokec4  \cf8 \strokec8 Math\cf6 \strokec6 .\cf4 \strokec4 min\cf6 \strokec6 (\cf9 \strokec9 100\cf6 \strokec6 ,\cf4 \strokec4  leftPosition\cf6 \strokec6 ));\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf5 \strokec5 const\cf4 \strokec4  safeWidth \cf6 \strokec6 =\cf4 \strokec4  \cf8 \strokec8 Math\cf6 \strokec6 .\cf4 \strokec4 max\cf6 \strokec6 (\cf9 \strokec9 0\cf6 \strokec6 ,\cf4 \strokec4  \cf8 \strokec8 Math\cf6 \strokec6 .\cf4 \strokec4 min\cf6 \strokec6 (\cf9 \strokec9 100\cf4 \strokec4  \cf6 \strokec6 -\cf4 \strokec4  safeLeft\cf6 \strokec6 ,\cf4 \strokec4  width\cf6 \strokec6 ));\cf4 \strokec4  \cf2 \strokec2 // Adjust width if it goes beyond 100%\cf4 \cb1 \strokec4 \
-\
-\cf4 \cb3 \strokec4         html \cf6 \strokec6 +=\cf4 \strokec4  \cf7 \strokec7 `\cf4 \cb1 \strokec4 \
-\pard\pardeftab720\partightenfactor0
-\cf7 \cb3 \strokec7             <div class="event-row">\cf4 \cb1 \strokec4 \
-\cf7 \cb3 \strokec7                 <div class="event-label">\cf6 \strokec6 $\{\cf4 \strokec4 event\cf6 \strokec6 .\cf4 \strokec4 venue\cf6 \strokec6 \}\cf7 \strokec7 </div>\cf4 \cb1 \strokec4 \
-\cf7 \cb3 \strokec7                 <div class="event-timeline relative">\cf4 \cb1 \strokec4 \
-\cf7 \cb3 \strokec7                     <div class="event-block" style="left: \cf6 \strokec6 $\{\cf4 \strokec4 safeLeft\cf6 \strokec6 \}\cf7 \strokec7 %; width: \cf6 \strokec6 $\{\cf4 \strokec4 safeWidth\cf6 \strokec6 \}\cf7 \strokec7 %;">\cf4 \cb1 \strokec4 \
-\cf7 \cb3 \strokec7                         <span>\cf6 \strokec6 $\{\cf4 \strokec4 event\cf6 \strokec6 .\cf4 \strokec4 event\cf6 \strokec6 \}\cf7 \strokec7 </span>\cf4 \cb1 \strokec4 \
-\cf7 \cb3 \strokec7                         <div class="tooltip">\cf4 \cb1 \strokec4 \
-\cf7 \cb3 \strokec7                             <strong>\cf6 \strokec6 $\{\cf4 \strokec4 event\cf6 \strokec6 .\cf4 \strokec4 time\cf6 \strokec6 \}\cf7 \strokec7 </strong><br>\cf4 \cb1 \strokec4 \
-\cf7 \cb3 \strokec7                             \cf6 \strokec6 $\{\cf4 \strokec4 event\cf6 \strokec6 .\cf4 \strokec4 event\cf6 \strokec6 \}\cf7 \strokec7 <br>\cf4 \cb1 \strokec4 \
-\cf7 \cb3 \strokec7                             at \cf6 \strokec6 $\{\cf4 \strokec4 event\cf6 \strokec6 .\cf4 \strokec4 venue\cf6 \strokec6 \}\cf4 \cb1 \strokec4 \
-\cf7 \cb3 \strokec7                         </div>\cf4 \cb1 \strokec4 \
-\cf7 \cb3 \strokec7                     </div>\cf4 \cb1 \strokec4 \
-\cf7 \cb3 \strokec7                 </div>\cf4 \cb1 \strokec4 \
-\cf7 \cb3 \strokec7             </div>\cf4 \cb1 \strokec4 \
-\cf7 \cb3 \strokec7         `\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
-\pard\pardeftab720\partightenfactor0
-\cf4 \cb3 \strokec4     \cf6 \strokec6 \});\cf4 \cb1 \strokec4 \
-\
-\cf4 \cb3 \strokec4     html \cf6 \strokec6 +=\cf4 \strokec4  \cf7 \strokec7 `</div>`\cf6 \strokec6 ;\cf4 \strokec4  \cf2 \strokec2 // Close relative div\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     timetableDisplay\cf6 \strokec6 .\cf4 \strokec4 innerHTML \cf6 \strokec6 =\cf4 \strokec4  html\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
-\pard\pardeftab720\partightenfactor0
-\cf6 \cb3 \strokec6 \}\cf4 \cb1 \strokec4 \
-\
-\pard\pardeftab720\partightenfactor0
-\cf2 \cb3 \strokec2 // Function to get min/max hours for a given day's events, considering the location filter\cf4 \cb1 \strokec4 \
-\pard\pardeftab720\partightenfactor0
-\cf5 \cb3 \strokec5 function\cf4 \strokec4  getMinMaxHours\cf6 \strokec6 (\cf4 \strokec4 eventsList\cf6 \strokec6 ,\cf4 \strokec4  locationFilter\cf6 \strokec6 )\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
-\pard\pardeftab720\partightenfactor0
-\cf4 \cb3 \strokec4     \cf5 \strokec5 const\cf4 \strokec4  filtered \cf6 \strokec6 =\cf4 \strokec4  eventsList\cf6 \strokec6 .\cf4 \strokec4 filter\cf6 \strokec6 (\cf4 \strokec4 event \cf6 \strokec6 =>\cf4 \strokec4  event\cf6 \strokec6 .\cf4 \strokec4 location \cf6 \strokec6 ===\cf4 \strokec4  locationFilter\cf6 \strokec6 );\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     \cf5 \strokec5 if\cf4 \strokec4  \cf6 \strokec6 (\cf4 \strokec4 filtered\cf6 \strokec6 .\cf4 \strokec4 length \cf6 \strokec6 ===\cf4 \strokec4  \cf9 \strokec9 0\cf6 \strokec6 )\cf4 \strokec4  \cf5 \strokec5 return\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \strokec4  min\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 12\cf6 \strokec6 ,\cf4 \strokec4  max\cf6 \strokec6 :\cf4 \strokec4  \cf9 \strokec9 24\cf4 \strokec4  \cf6 \strokec6 \};\cf4 \strokec4  \cf2 \strokec2 // Default to a reasonable range if no filtered events\cf4 \cb1 \strokec4 \
-\
-\cf4 \cb3 \strokec4     \cf5 \strokec5 let\cf4 \strokec4  min \cf6 \strokec6 =\cf4 \strokec4  filtered\cf6 \strokec6 [\cf9 \strokec9 0\cf6 \strokec6 ].\cf4 \strokec4 start\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     \cf5 \strokec5 let\cf4 \strokec4  max \cf6 \strokec6 =\cf4 \strokec4  filtered\cf6 \strokec6 [\cf9 \strokec9 0\cf6 \strokec6 ].\cf4 \strokec4 end\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
-\
-\cf4 \cb3 \strokec4     filtered\cf6 \strokec6 .\cf4 \strokec4 forEach\cf6 \strokec6 (\cf4 \strokec4 event \cf6 \strokec6 =>\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf5 \strokec5 if\cf4 \strokec4  \cf6 \strokec6 (\cf4 \strokec4 event\cf6 \strokec6 .\cf4 \strokec4 start \cf6 \strokec6 <\cf4 \strokec4  min\cf6 \strokec6 )\cf4 \strokec4  min \cf6 \strokec6 =\cf4 \strokec4  event\cf6 \strokec6 .\cf4 \strokec4 start\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         \cf5 \strokec5 if\cf4 \strokec4  \cf6 \strokec6 (\cf4 \strokec4 event\cf6 \strokec6 .\cf4 \strokec4 end \cf6 \strokec6 >\cf4 \strokec4  max\cf6 \strokec6 )\cf4 \strokec4  max \cf6 \strokec6 =\cf4 \strokec4  event\cf6 \strokec6 .\cf4 \strokec4 end\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     \cf6 \strokec6 \});\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     \cf2 \strokec2 // Ensure the time range spans full hours, adjusting for events crossing midnight\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     \cf5 \strokec5 return\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \strokec4  min\cf6 \strokec6 :\cf4 \strokec4  \cf8 \strokec8 Math\cf6 \strokec6 .\cf4 \strokec4 floor\cf6 \strokec6 (\cf4 \strokec4 min\cf6 \strokec6 ),\cf4 \strokec4  max\cf6 \strokec6 :\cf4 \strokec4  \cf8 \strokec8 Math\cf6 \strokec6 .\cf4 \strokec4 ceil\cf6 \strokec6 (\cf4 \strokec4 max\cf6 \strokec6 )\cf4 \strokec4  \cf6 \strokec6 >\cf4 \strokec4  \cf9 \strokec9 24\cf4 \strokec4  \cf6 \strokec6 ?\cf4 \strokec4  \cf8 \strokec8 Math\cf6 \strokec6 .\cf4 \strokec4 ceil\cf6 \strokec6 (\cf4 \strokec4 max\cf6 \strokec6 )\cf4 \strokec4  \cf6 \strokec6 :\cf4 \strokec4  \cf8 \strokec8 Math\cf6 \strokec6 .\cf4 \strokec4 ceil\cf6 \strokec6 (\cf4 \strokec4 max\cf6 \strokec6 )\cf4 \strokec4  \cf6 \strokec6 \};\cf4 \cb1 \strokec4 \
-\pard\pardeftab720\partightenfactor0
-\cf6 \cb3 \strokec6 \}\cf4 \cb1 \strokec4 \
-\
-\pard\pardeftab720\partightenfactor0
-\cf2 \cb3 \strokec2 // Event listeners for day buttons\cf4 \cb1 \strokec4 \
-\pard\pardeftab720\partightenfactor0
-\cf4 \cb3 \strokec4 btnFri\cf6 \strokec6 .\cf4 \strokec4 addEventListener\cf6 \strokec6 (\cf7 \strokec7 'click'\cf6 \strokec6 ,\cf4 \strokec4  \cf6 \strokec6 ()\cf4 \strokec4  \cf6 \strokec6 =>\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     currentDay \cf6 \strokec6 =\cf4 \strokec4  \cf7 \strokec7 'fri'\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     updateTimetable\cf6 \strokec6 ();\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     setActiveButtonDay\cf6 \strokec6 (\cf7 \strokec7 'fri'\cf6 \strokec6 );\cf4 \cb1 \strokec4 \
-\pard\pardeftab720\partightenfactor0
-\cf6 \cb3 \strokec6 \});\cf4 \cb1 \strokec4 \
-\
-\pard\pardeftab720\partightenfactor0
-\cf4 \cb3 \strokec4 btnSat\cf6 \strokec6 .\cf4 \strokec4 addEventListener\cf6 \strokec6 (\cf7 \strokec7 'click'\cf6 \strokec6 ,\cf4 \strokec4  \cf6 \strokec6 ()\cf4 \strokec4  \cf6 \strokec6 =>\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     currentDay \cf6 \strokec6 =\cf4 \strokec4  \cf7 \strokec7 'sat'\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     updateTimetable\cf6 \strokec6 ();\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     setActiveButtonDay\cf6 \strokec6 (\cf7 \strokec7 'sat'\cf6 \strokec6 );\cf4 \cb1 \strokec4 \
-\pard\pardeftab720\partightenfactor0
-\cf6 \cb3 \strokec6 \});\cf4 \cb1 \strokec4 \
-\
-\pard\pardeftab720\partightenfactor0
-\cf4 \cb3 \strokec4 btnSun\cf6 \strokec6 .\cf4 \strokec4 addEventListener\cf6 \strokec6 (\cf7 \strokec7 'click'\cf6 \strokec6 ,\cf4 \strokec4  \cf6 \strokec6 ()\cf4 \strokec4  \cf6 \strokec6 =>\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     currentDay \cf6 \strokec6 =\cf4 \strokec4  \cf7 \strokec7 'sun'\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     updateTimetable\cf6 \strokec6 ();\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     setActiveButtonDay\cf6 \strokec6 (\cf7 \strokec7 'sun'\cf6 \strokec6 );\cf4 \cb1 \strokec4 \
-\pard\pardeftab720\partightenfactor0
-\cf6 \cb3 \strokec6 \});\cf4 \cb1 \strokec4 \
-\
-\pard\pardeftab720\partightenfactor0
-\cf2 \cb3 \strokec2 // New event listeners for July 15, 16 and 17\cf4 \cb1 \strokec4 \
-\pard\pardeftab720\partightenfactor0
-\cf4 \cb3 \strokec4 btnJul15\cf6 \strokec6 .\cf4 \strokec4 addEventListener\cf6 \strokec6 (\cf7 \strokec7 'click'\cf6 \strokec6 ,\cf4 \strokec4  \cf6 \strokec6 ()\cf4 \strokec4  \cf6 \strokec6 =>\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     currentDay \cf6 \strokec6 =\cf4 \strokec4  \cf7 \strokec7 'jul15'\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     updateTimetable\cf6 \strokec6 ();\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     setActiveButtonDay\cf6 \strokec6 (\cf7 \strokec7 'jul15'\cf6 \strokec6 );\cf4 \cb1 \strokec4 \
-\pard\pardeftab720\partightenfactor0
-\cf6 \cb3 \strokec6 \});\cf4 \cb1 \strokec4 \
-\pard\pardeftab720\partightenfactor0
-\cf4 \cb3 \strokec4 btnJul16\cf6 \strokec6 .\cf4 \strokec4 addEventListener\cf6 \strokec6 (\cf7 \strokec7 'click'\cf6 \strokec6 ,\cf4 \strokec4  \cf6 \strokec6 ()\cf4 \strokec4  \cf6 \strokec6 =>\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     currentDay \cf6 \strokec6 =\cf4 \strokec4  \cf7 \strokec7 'jul16'\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     updateTimetable\cf6 \strokec6 ();\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     setActiveButtonDay\cf6 \strokec6 (\cf7 \strokec7 'jul16'\cf6 \strokec6 );\cf4 \cb1 \strokec4 \
-\pard\pardeftab720\partightenfactor0
-\cf6 \cb3 \strokec6 \});\cf4 \cb1 \strokec4 \
-\
-\pard\pardeftab720\partightenfactor0
-\cf4 \cb3 \strokec4 btnJul17\cf6 \strokec6 .\cf4 \strokec4 addEventListener\cf6 \strokec6 (\cf7 \strokec7 'click'\cf6 \strokec6 ,\cf4 \strokec4  \cf6 \strokec6 ()\cf4 \strokec4  \cf6 \strokec6 =>\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     currentDay \cf6 \strokec6 =\cf4 \strokec4  \cf7 \strokec7 'jul17'\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     updateTimetable\cf6 \strokec6 ();\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     setActiveButtonDay\cf6 \strokec6 (\cf7 \strokec7 'jul17'\cf6 \strokec6 );\cf4 \cb1 \strokec4 \
-\pard\pardeftab720\partightenfactor0
-\cf6 \cb3 \strokec6 \});\cf4 \cb1 \strokec4 \
-\
-\pard\pardeftab720\partightenfactor0
-\cf2 \cb3 \strokec2 // Event listeners for location buttons\cf4 \cb1 \strokec4 \
-\pard\pardeftab720\partightenfactor0
-\cf4 \cb3 \strokec4 btnHK\cf6 \strokec6 .\cf4 \strokec4 addEventListener\cf6 \strokec6 (\cf7 \strokec7 'click'\cf6 \strokec6 ,\cf4 \strokec4  \cf6 \strokec6 ()\cf4 \strokec4  \cf6 \strokec6 =>\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     currentLocation \cf6 \strokec6 =\cf4 \strokec4  \cf7 \strokec7 'Hong Kong'\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     updateTimetable\cf6 \strokec6 ();\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     setActiveButtonLocation\cf6 \strokec6 (\cf7 \strokec7 'hk'\cf6 \strokec6 );\cf4 \cb1 \strokec4 \
-\pard\pardeftab720\partightenfactor0
-\cf6 \cb3 \strokec6 \});\cf4 \cb1 \strokec4 \
-\
-\pard\pardeftab720\partightenfactor0
-\cf4 \cb3 \strokec4 btnMacau\cf6 \strokec6 .\cf4 \strokec4 addEventListener\cf6 \strokec6 (\cf7 \strokec7 'click'\cf6 \strokec6 ,\cf4 \strokec4  \cf6 \strokec6 ()\cf4 \strokec4  \cf6 \strokec6 =>\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     currentLocation \cf6 \strokec6 =\cf4 \strokec4  \cf7 \strokec7 'Macau'\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     updateTimetable\cf6 \strokec6 ();\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     setActiveButtonLocation\cf6 \strokec6 (\cf7 \strokec7 'macau'\cf6 \strokec6 );\cf4 \cb1 \strokec4 \
-\pard\pardeftab720\partightenfactor0
-\cf6 \cb3 \strokec6 \});\cf4 \cb1 \strokec4 \
-\
-\pard\pardeftab720\partightenfactor0
-\cf2 \cb3 \strokec2 // Main function to update the timetable based on current day and location\cf4 \cb1 \strokec4 \
-\pard\pardeftab720\partightenfactor0
-\cf5 \cb3 \strokec5 function\cf4 \strokec4  updateTimetable\cf6 \strokec6 ()\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
-\pard\pardeftab720\partightenfactor0
-\cf4 \cb3 \strokec4     \cf5 \strokec5 const\cf4 \strokec4  dayEvents \cf6 \strokec6 =\cf4 \strokec4  events\cf6 \strokec6 [\cf4 \strokec4 currentDay\cf6 \strokec6 ];\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     \cf5 \strokec5 const\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \strokec4  min\cf6 \strokec6 ,\cf4 \strokec4  max \cf6 \strokec6 \}\cf4 \strokec4  \cf6 \strokec6 =\cf4 \strokec4  getMinMaxHours\cf6 \strokec6 (\cf4 \strokec4 dayEvents\cf6 \strokec6 ,\cf4 \strokec4  currentLocation\cf6 \strokec6 );\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     \cf5 \strokec5 let\cf4 \strokec4  dayName \cf6 \strokec6 =\cf4 \strokec4  \cf7 \strokec7 ''\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     \cf5 \strokec5 if\cf4 \strokec4  \cf6 \strokec6 (\cf4 \strokec4 currentDay \cf6 \strokec6 ===\cf4 \strokec4  \cf7 \strokec7 'fri'\cf6 \strokec6 )\cf4 \strokec4  dayName \cf6 \strokec6 =\cf4 \strokec4  \cf7 \strokec7 'Friday, July 11, 2025'\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     \cf5 \strokec5 else\cf4 \strokec4  \cf5 \strokec5 if\cf4 \strokec4  \cf6 \strokec6 (\cf4 \strokec4 currentDay \cf6 \strokec6 ===\cf4 \strokec4  \cf7 \strokec7 'sat'\cf6 \strokec6 )\cf4 \strokec4  dayName \cf6 \strokec6 =\cf4 \strokec4  \cf7 \strokec7 'Saturday, July 12, 2025'\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     \cf5 \strokec5 else\cf4 \strokec4  \cf5 \strokec5 if\cf4 \strokec4  \cf6 \strokec6 (\cf4 \strokec4 currentDay \cf6 \strokec6 ===\cf4 \strokec4  \cf7 \strokec7 'sun'\cf6 \strokec6 )\cf4 \strokec4  dayName \cf6 \strokec6 =\cf4 \strokec4  \cf7 \strokec7 'Sunday, July 13, 2025'\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     \cf5 \strokec5 else\cf4 \strokec4  \cf5 \strokec5 if\cf4 \strokec4  \cf6 \strokec6 (\cf4 \strokec4 currentDay \cf6 \strokec6 ===\cf4 \strokec4  \cf7 \strokec7 'jul15'\cf6 \strokec6 )\cf4 \strokec4  dayName \cf6 \strokec6 =\cf4 \strokec4  \cf7 \strokec7 'Tuesday, July 15, 2025'\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     \cf5 \strokec5 else\cf4 \strokec4  \cf5 \strokec5 if\cf4 \strokec4  \cf6 \strokec6 (\cf4 \strokec4 currentDay \cf6 \strokec6 ===\cf4 \strokec4  \cf7 \strokec7 'jul16'\cf6 \strokec6 )\cf4 \strokec4  dayName \cf6 \strokec6 =\cf4 \strokec4  \cf7 \strokec7 'Wednesday, July 16, 2025'\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     \cf5 \strokec5 else\cf4 \strokec4  \cf5 \strokec5 if\cf4 \strokec4  \cf6 \strokec6 (\cf4 \strokec4 currentDay \cf6 \strokec6 ===\cf4 \strokec4  \cf7 \strokec7 'jul17'\cf6 \strokec6 )\cf4 \strokec4  dayName \cf6 \strokec6 =\cf4 \strokec4  \cf7 \strokec7 'Thursday, July 17, 2025'\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
-\
-\cf4 \cb3 \strokec4     renderTimetable\cf6 \strokec6 (\cf4 \strokec4 dayEvents\cf6 \strokec6 ,\cf4 \strokec4  dayName\cf6 \strokec6 ,\cf4 \strokec4  currentLocation\cf6 \strokec6 ,\cf4 \strokec4  min\cf6 \strokec6 ,\cf4 \strokec4  max\cf6 \strokec6 );\cf4 \cb1 \strokec4 \
-\pard\pardeftab720\partightenfactor0
-\cf6 \cb3 \strokec6 \}\cf4 \cb1 \strokec4 \
-\
-\pard\pardeftab720\partightenfactor0
-\cf2 \cb3 \strokec2 // Function to set active button styling for days\cf4 \cb1 \strokec4 \
-\pard\pardeftab720\partightenfactor0
-\cf5 \cb3 \strokec5 function\cf4 \strokec4  setActiveButtonDay\cf6 \strokec6 (\cf4 \strokec4 day\cf6 \strokec6 )\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
-\pard\pardeftab720\partightenfactor0
-\cf4 \cb3 \strokec4     \cf6 \strokec6 [\cf4 \strokec4 btnFri\cf6 \strokec6 ,\cf4 \strokec4  btnSat\cf6 \strokec6 ,\cf4 \strokec4  btnSun\cf6 \strokec6 ,\cf4 \strokec4  btnJul15\cf6 \strokec6 ,\cf4 \strokec4  btnJul16\cf6 \strokec6 ,\cf4 \strokec4  btnJul17\cf6 \strokec6 ].\cf4 \strokec4 forEach\cf6 \strokec6 (\cf4 \strokec4 btn \cf6 \strokec6 =>\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         btn\cf6 \strokec6 .\cf4 \strokec4 classList\cf6 \strokec6 .\cf4 \strokec4 remove\cf6 \strokec6 (\cf7 \strokec7 'bg-blue-600'\cf6 \strokec6 ,\cf4 \strokec4  \cf7 \strokec7 'text-white'\cf6 \strokec6 ,\cf4 \strokec4  \cf7 \strokec7 'hover:bg-blue-700'\cf6 \strokec6 ,\cf4 \strokec4  \cf7 \strokec7 'focus:ring-blue-300'\cf6 \strokec6 );\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         btn\cf6 \strokec6 .\cf4 \strokec4 classList\cf6 \strokec6 .\cf4 \strokec4 add\cf6 \strokec6 (\cf7 \strokec7 'bg-gray-300'\cf6 \strokec6 ,\cf4 \strokec4  \cf7 \strokec7 'text-gray-800'\cf6 \strokec6 ,\cf4 \strokec4  \cf7 \strokec7 'hover:bg-gray-400'\cf6 \strokec6 ,\cf4 \strokec4  \cf7 \strokec7 'focus:ring-gray-400'\cf6 \strokec6 );\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     \cf6 \strokec6 \});\cf4 \cb1 \strokec4 \
-\
-\cf4 \cb3 \strokec4     \cf5 \strokec5 let\cf4 \strokec4  activeButton\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     \cf5 \strokec5 if\cf4 \strokec4  \cf6 \strokec6 (\cf4 \strokec4 day \cf6 \strokec6 ===\cf4 \strokec4  \cf7 \strokec7 'fri'\cf6 \strokec6 )\cf4 \strokec4  activeButton \cf6 \strokec6 =\cf4 \strokec4  btnFri\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     \cf5 \strokec5 else\cf4 \strokec4  \cf5 \strokec5 if\cf4 \strokec4  \cf6 \strokec6 (\cf4 \strokec4 day \cf6 \strokec6 ===\cf4 \strokec4  \cf7 \strokec7 'sat'\cf6 \strokec6 )\cf4 \strokec4  activeButton \cf6 \strokec6 =\cf4 \strokec4  btnSat\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     \cf5 \strokec5 else\cf4 \strokec4  \cf5 \strokec5 if\cf4 \strokec4  \cf6 \strokec6 (\cf4 \strokec4 day \cf6 \strokec6 ===\cf4 \strokec4  \cf7 \strokec7 'sun'\cf6 \strokec6 )\cf4 \strokec4  activeButton \cf6 \strokec6 =\cf4 \strokec4  btnSun\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     \cf5 \strokec5 else\cf4 \strokec4  \cf5 \strokec5 if\cf4 \strokec4  \cf6 \strokec6 (\cf4 \strokec4 day \cf6 \strokec6 ===\cf4 \strokec4  \cf7 \strokec7 'jul15'\cf6 \strokec6 )\cf4 \strokec4  activeButton \cf6 \strokec6 =\cf4 \strokec4  btnJul15\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     \cf5 \strokec5 else\cf4 \strokec4  \cf5 \strokec5 if\cf4 \strokec4  \cf6 \strokec6 (\cf4 \strokec4 day \cf6 \strokec6 ===\cf4 \strokec4  \cf7 \strokec7 'jul16'\cf6 \strokec6 )\cf4 \strokec4  activeButton \cf6 \strokec6 =\cf4 \strokec4  btnJul16\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     \cf5 \strokec5 else\cf4 \strokec4  \cf5 \strokec5 if\cf4 \strokec4  \cf6 \strokec6 (\cf4 \strokec4 day \cf6 \strokec6 ===\cf4 \strokec4  \cf7 \strokec7 'jul17'\cf6 \strokec6 )\cf4 \strokec4  activeButton \cf6 \strokec6 =\cf4 \strokec4  btnJul17\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
-\
-\cf4 \cb3 \strokec4     \cf5 \strokec5 if\cf4 \strokec4  \cf6 \strokec6 (\cf4 \strokec4 activeButton\cf6 \strokec6 )\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         activeButton\cf6 \strokec6 .\cf4 \strokec4 classList\cf6 \strokec6 .\cf4 \strokec4 remove\cf6 \strokec6 (\cf7 \strokec7 'bg-gray-300'\cf6 \strokec6 ,\cf4 \strokec4  \cf7 \strokec7 'text-gray-800'\cf6 \strokec6 ,\cf4 \strokec4  \cf7 \strokec7 'hover:bg-gray-400'\cf6 \strokec6 ,\cf4 \strokec4  \cf7 \strokec7 'focus:ring-gray-400'\cf6 \strokec6 );\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         activeButton\cf6 \strokec6 .\cf4 \strokec4 classList\cf6 \strokec6 .\cf4 \strokec4 add\cf6 \strokec6 (\cf7 \strokec7 'bg-blue-600'\cf6 \strokec6 ,\cf4 \strokec4  \cf7 \strokec7 'text-white'\cf6 \strokec6 ,\cf4 \strokec4  \cf7 \strokec7 'hover:bg-blue-700'\cf6 \strokec6 ,\cf4 \strokec4  \cf7 \strokec7 'focus:ring-blue-300'\cf6 \strokec6 );\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     \cf6 \strokec6 \}\cf4 \cb1 \strokec4 \
-\pard\pardeftab720\partightenfactor0
-\cf6 \cb3 \strokec6 \}\cf4 \cb1 \strokec4 \
-\
-\pard\pardeftab720\partightenfactor0
-\cf2 \cb3 \strokec2 // Function to set active button styling for locations\cf4 \cb1 \strokec4 \
-\pard\pardeftab720\partightenfactor0
-\cf5 \cb3 \strokec5 function\cf4 \strokec4  setActiveButtonLocation\cf6 \strokec6 (\cf4 \strokec4 location\cf6 \strokec6 )\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
-\pard\pardeftab720\partightenfactor0
-\cf4 \cb3 \strokec4     \cf6 \strokec6 [\cf4 \strokec4 btnHK\cf6 \strokec6 ,\cf4 \strokec4  btnMacau\cf6 \strokec6 ].\cf4 \strokec4 forEach\cf6 \strokec6 (\cf4 \strokec4 btn \cf6 \strokec6 =>\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         btn\cf6 \strokec6 .\cf4 \strokec4 classList\cf6 \strokec6 .\cf4 \strokec4 remove\cf6 \strokec6 (\cf7 \strokec7 'bg-blue-600'\cf6 \strokec6 ,\cf4 \strokec4  \cf7 \strokec7 'text-white'\cf6 \strokec6 ,\cf4 \strokec4  \cf7 \strokec7 'hover:bg-blue-700'\cf6 \strokec6 ,\cf4 \strokec4  \cf7 \strokec7 'focus:ring-blue-300'\cf6 \strokec6 );\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         btn\cf6 \strokec6 .\cf4 \strokec4 classList\cf6 \strokec6 .\cf4 \strokec4 add\cf6 \strokec6 (\cf7 \strokec7 'bg-gray-300'\cf6 \strokec6 ,\cf4 \strokec4  \cf7 \strokec7 'text-gray-800'\cf6 \strokec6 ,\cf4 \strokec4  \cf7 \strokec7 'hover:bg-gray-400'\cf6 \strokec6 ,\cf4 \strokec4  \cf7 \strokec7 'focus:ring-gray-400'\cf6 \strokec6 );\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     \cf6 \strokec6 \});\cf4 \cb1 \strokec4 \
-\
-\cf4 \cb3 \strokec4     \cf5 \strokec5 let\cf4 \strokec4  activeButton\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     \cf5 \strokec5 if\cf4 \strokec4  \cf6 \strokec6 (\cf4 \strokec4 location \cf6 \strokec6 ===\cf4 \strokec4  \cf7 \strokec7 'hk'\cf6 \strokec6 )\cf4 \strokec4  activeButton \cf6 \strokec6 =\cf4 \strokec4  btnHK\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     \cf5 \strokec5 else\cf4 \strokec4  \cf5 \strokec5 if\cf4 \strokec4  \cf6 \strokec6 (\cf4 \strokec4 location \cf6 \strokec6 ===\cf4 \strokec4  \cf7 \strokec7 'macau'\cf6 \strokec6 )\cf4 \strokec4  activeButton \cf6 \strokec6 =\cf4 \strokec4  btnMacau\cf6 \strokec6 ;\cf4 \cb1 \strokec4 \
-\
-\cf4 \cb3 \strokec4     \cf5 \strokec5 if\cf4 \strokec4  \cf6 \strokec6 (\cf4 \strokec4 activeButton\cf6 \strokec6 )\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         activeButton\cf6 \strokec6 .\cf4 \strokec4 classList\cf6 \strokec6 .\cf4 \strokec4 remove\cf6 \strokec6 (\cf7 \strokec7 'bg-gray-300'\cf6 \strokec6 ,\cf4 \strokec4  \cf7 \strokec7 'text-gray-800'\cf6 \strokec6 ,\cf4 \strokec4  \cf7 \strokec7 'hover:bg-gray-400'\cf6 \strokec6 ,\cf4 \strokec4  \cf7 \strokec7 'focus:ring-gray-400'\cf6 \strokec6 );\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4         activeButton\cf6 \strokec6 .\cf4 \strokec4 classList\cf6 \strokec6 .\cf4 \strokec4 add\cf6 \strokec6 (\cf7 \strokec7 'bg-blue-600'\cf6 \strokec6 ,\cf4 \strokec4  \cf7 \strokec7 'text-white'\cf6 \strokec6 ,\cf4 \strokec4  \cf7 \strokec7 'hover:bg-blue-700'\cf6 \strokec6 ,\cf4 \strokec4  \cf7 \strokec7 'focus:ring-blue-300'\cf6 \strokec6 );\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     \cf6 \strokec6 \}\cf4 \cb1 \strokec4 \
-\pard\pardeftab720\partightenfactor0
-\cf6 \cb3 \strokec6 \}\cf4 \cb1 \strokec4 \
-\
-\pard\pardeftab720\partightenfactor0
-\cf2 \cb3 \strokec2 // Initial render: Set July 16 as default day and Hong Kong as default location\cf4 \cb1 \strokec4 \
-\pard\pardeftab720\partightenfactor0
-\cf4 \cb3 \strokec4 window\cf6 \strokec6 .\cf4 \strokec4 onload \cf6 \strokec6 =\cf4 \strokec4  \cf5 \strokec5 function\cf6 \strokec6 ()\cf4 \strokec4  \cf6 \strokec6 \{\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     setActiveButtonDay\cf6 \strokec6 (\cf4 \strokec4 currentDay\cf6 \strokec6 );\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     setActiveButtonLocation\cf6 \strokec6 (\cf4 \strokec4 currentLocation \cf6 \strokec6 ===\cf4 \strokec4  \cf7 \strokec7 'Hong Kong'\cf4 \strokec4  \cf6 \strokec6 ?\cf4 \strokec4  \cf7 \strokec7 'hk'\cf4 \strokec4  \cf6 \strokec6 :\cf4 \strokec4  \cf7 \strokec7 'macau'\cf6 \strokec6 );\cf4 \cb1 \strokec4 \
-\cf4 \cb3 \strokec4     updateTimetable\cf6 \strokec6 ();\cf4 \cb1 \strokec4 \
-\pard\pardeftab720\partightenfactor0
-\cf6 \cb3 \strokec6 \};\cf4 \cb1 \strokec4 \
-\
+    if (ampm === 'PM' && hours !== 12) {
+        hours += 12;
+    } else if (ampm === 'AM' && hours === 12) { // Midnight (12 AM)
+        hours = 0;
+    }
+    return hours + minutes / 60;
 }
+
+// Array containing all event data, now with location property
+const events = {
+    'fri': [
+        { time: '18:00 - 20:00', event: 'Augustin Da Sambagio (Potato Head – Bali)', venue: 'Socio', start: 18, end: 20, location: 'Hong Kong' },
+        { time: '18:30 - 21:30', event: 'Jigger & Pony (Singapore)', venue: 'The Macallan House', start: 18.5, end: 21.5, location: 'Hong Kong' },
+        { time: '19:00 - 21:00', event: 'Lakeview Palace x Yong Fu x Tell Camellia Tea-Tales', venue: 'Lakeview Palace', start: 19, end: 21, location: 'Macau' },
+        { time: '19:00 - 22:00', event: 'Julio Bermejo & Dre Masso', venue: 'Coa', start: 19, end: 22, location: 'Hong Kong' },
+        { time: '19:00 - 23:00', event: 'Elliot Faber Takes Over Mizumi', venue: 'Wynn Palace Mizumi', start: 19, end: 23, location: 'Macau' },
+        { time: '19:00 - 23:00', event: 'Atlas (Singapore)', venue: 'Lobster Bar', start: 19, end: 23, location: 'Hong Kong' },
+        { time: '20:00 - 23:00', event: 'Nepal\'s Finest: Barc | Tell Camellia | Courtroom', venue: 'Wing Lei Bar', start: 20, end: 23, location: 'Macau' },
+        { time: '20:00 - 23:00', event: 'Keegan McGregor\'s World Class Takeover', venue: 'SW Steakhouse', start: 20, end: 23, location: 'Macau' },
+        { time: '20:00 - 23:00', event: 'Amanda Wan (Three X Co – Kuala Lumpur)', venue: 'Avoca', start: 20, end: 23, location: 'Hong Kong' },
+        { time: '20:00 - 23:00', event: 'Bar Us (Bangkok)', venue: 'Green Room', start: 20, end: 23, location: 'Hong Kong' },
+        { time: '21:00 - 00:00', event: 'Weiqin Li (Bathe Coffee)', venue: 'The Gallery Bar Macao', start: 21, end: 24, location: 'Macau' }
+    ],
+    'sat': [
+        { time: '15:00 - 17:00', event: '8 Hands Industry Cocktails', venue: 'Avoca', start: 15, end: 17, location: 'Hong Kong' },
+        { time: '17:00 - 19:00', event: 'Panjak Balachandran & Macleigh Rey Fernandes (Boilermaker – Goa)', venue: 'Bourke\'s', start: 17, end: 19, location: 'Hong Kong' },
+        { time: '18:00 - 20:00', event: 'Chef Tam\'s Seasons x Bar Mood', venue: 'Chef Tam\'s Seasons', start: 18, end: 20, location: 'Macau' },
+        { time: '18:00 - 20:00', event: 'Epic (Shanghai)', venue: 'The Old Man', start: 18, end: 20, location: 'Hong Kong' },
+        { time: '18:30 - 21:30', event: 'Atlas (Singapore)', venue: 'The Macallan House', start: 18.5, end: 21.5, location: 'Hong Kong' },
+        { time: '19:00 - 21:00', event: 'Drunken Fish x Maybe Sammy (50 Best Signature Sessions)', venue: 'Drunken Fish', start: 19, end: 21, location: 'Macau' },
+        { time: '19:00 - 21:00', event: 'Wing Lei Bar Showcase: Mark Lloyd', venue: 'Wing Lei Bar', start: 19, end: 21, location: 'Macau' },
+        { time: '19:00 - 21:00', event: 'Marco Dongi (Bar Sathorn – Bangkok)', venue: 'Ozone', start: 19, end: 21, location: 'Hong Kong' },
+        { time: '19:00 - 23:00', event: 'Jigger & Pony (Singapore)', venue: 'Lobster Bar', start: 19, end: 23, location: 'Hong Kong' },
+        { time: '20:00 - 23:00', event: 'Sober Company (Shanghai)', venue: 'Avoca', start: 20, end: 23, location: 'Hong Kong' },
+        { time: '20:00 - 23:00', event: 'Hideaway Bar (Goa)', venue: 'Barcode', start: 20, end: 23, location: 'Hong Kong' },
+        { time: '20:00 - 23:00', event: 'Shingo Sasaki (Sober Company – Shanghai)', venue: 'Ritz Carlton Bar and Lounge Macau', start: 20, end: 23, location: 'Macau' },
+        { time: '20:00 - 23:00', event: 'Shin Lee & Ribo Lee (Bar Geranium – Seoul)', venue: '25:00', start: 20, end: 23, location: 'Hong Kong' },
+        { time: '20:00 - 00:00', event: 'Santo Metodo (Zuma – Bangkok)', venue: 'The Wise King', start: 20, end: 24, location: 'Hong Kong' },
+        { time: '20:30 - 23:30', event: 'Dave Lam (The Dolomite – Shenzhen)', venue: 'Bar Buonasera', start: 20.5, end: 23.5, location: 'Hong Kong' },
+        { time: '20:30 - 23:30', event: 'Pera Srisuk (The Fool Speakeasy – Phuket)', venue: 'Foxglove', start: 20.5, end: 23.5, location: 'Hong Kong' },
+        { time: '21:00 - 23:00', event: 'Orsu Loviconi & Awaraa Awarzed', venue: 'Roucou', start: 21, end: 23, location: 'Hong Kong' },
+        { time: '21:00 - 23:30', event: 'Julio Bermejo & Sam Ross', venue: 'Wing Lei Bar', start: 21, end: 23.5, location: 'Macau' },
+        { time: '21:00 - 00:00', event: 'Paul Zhang', venue: 'The Gallery Bar Macao', start: 21, end: 24, location: 'Macau' },
+        { time: '22:00 - 02:00', event: 'Bar Pop-up: Teresa Cocktail Bar x ZLB23', venue: 'Palace Reserve Club', start: 22, end: 26, location: 'Macau' },
+        { time: '22:30 - 02:00', event: 'Happy Accidents, PS40, Artesian Bar, Manhattan Bar', venue: 'The Aubrey', start: 22.5, end: 26, location: 'Hong Kong' }
+    ],
+    'sun': [
+        { time: '12:00 - 14:00', event: 'Sushi Mizumi x Martiny\'s (50 Best Signature Sessions)', venue: 'Wynn Palace Mizumi', start: 12, end: 14, location: 'Macau' },
+        { time: '15:00 - 18:00', event: 'Rainbow Takeover: Mostly Harmless | Artifact', venue: 'Wing Lei Bar', start: 15, end: 18, location: 'Macau' },
+        { time: '15:00 - 18:00', event: 'Honky Tonks Tavern | Potato Head Beach Club', venue: 'Palace Reserve Club', start: 15, end: 18, location: 'Macau' },
+        { time: '16:00 - 19:00', event: 'Atlas (Singapore) & Cosmo Pony (Jakarta)', venue: 'The Opposites', start: 16, end: 19, location: 'Hong Kong' }
+    ],
+    'jul15': [
+        { time: '1:00 PM - 3:00 PM', event: 'Chef Tam’s Seasons x Masque x Sidecar', venue: 'Chef Tam\'s Seasons, Wynn Palace', start: 13, end: 15, location: 'Macau' },
+        { time: '6:00 PM - 10:00 PM', event: 'Asia’s 50 Best Bars', venue: 'Wynn Palace', start: 18, end: 22, location: 'Macau' },
+        { time: '8:30 PM - 12:30 AM', event: 'Bar Cham x Alice x Le Chamber x Pine & Co', venue: 'Long Bar, Galaxy Hotel', start: 20.5, end: 24.5, location: 'Macau' },
+        { time: '10:00 PM - 1:00 AM', event: 'Bae’s Cocktail Club (Singapore)', venue: 'The Diplomat', start: 22, end: 25, location: 'Hong Kong' },
+        { time: '10:00 PM - 1:00 AM', event: 'Taln & Aum (Bar Us – Bangkok)', venue: 'Mesa Bar, THE KARL LAGERFELD', start: 22, end: 25, location: 'Macau' },
+        { time: '10:00 PM - 12:00 AM', event: 'Cat Bite Club (Singapore) | Reka (Kuala Lumpur)', venue: 'St. Regis Bar Macau', start: 22, end: 24, location: 'Macau' },
+        { time: '10:00 PM - 2:00 AM', event: 'Official After Party: Freni e Frizioni | Vender | Bar Myung | Dead Poets', venue: 'Palace Reserve Club, Wynn Palace', start: 22, end: 26, location: 'Macau' },
+        { time: '10:00 PM - 2:00 AM', event: 'Nicola Lazzari & Giuseppe Destefano (1920 – Dubai)', venue: 'Mesa Bar, THE KARL LAGERFELD', start: 22, end: 26, location: 'Macau' },
+        { time: '11:00 PM - 1:00 AM', event: 'Cat Bite Club (Singapore) | The Cocktail Club (Jakarta)', venue: 'Argo', start: 23, end: 25, location: 'Hong Kong' },
+        { time: '11:00 PM - 3:30 AM', event: 'Torres Brandy After Party by Hope & Sesame, Two Moons, & Night Hawk', venue: 'Moon on Planet, Studio City Macau', start: 23, end: 27.5, location: 'Macau' }
+    ],
+    'jul16': [
+        { time: '12:00 AM - 2:00 AM', event: 'Soko (Seoul) | Vesper (Bangkok)', venue: 'St. Regis Bar Macau', start: 0, end: 2, location: 'Macau' },
+        { time: '3:00 PM - 5:00 PM', event: 'Wing Lei Bar Showcase: Mark Lloyd', venue: 'Wing Lei Bar, Wynn Palace', start: 15, end: 17, location: 'Macau' },
+        { time: '4:00 PM - 7:00 PM', event: 'Locale Firenze (Florence) | Moebius (Milan)', venue: 'Bar Leone', start: 16, end: 19, location: 'Hong Kong' },
+        { time: '6:00 PM - 8:00 PM', event: 'Three Cents Guest Shift', venue: 'Penicillin', start: 18, end: 20, location: 'Hong Kong' },
+        { time: '6:00 PM - 9:00 PM', event: 'Soko & One (Bar Soko – Seoul)', venue: 'The Old Man', start: 18, end: 21, location: 'Hong Kong' },
+        { time: '7:00 PM - 11:00 PM', event: 'Wayne 安威 (Bar Hide – Taoyuan)', venue: 'Bar De Luxe', start: 19, end: 23, location: 'Hong Kong' },
+        { time: '7:00 PM - 11:00 PM', event: 'Ale May (Iron Balls – Bangkok)', venue: 'Paragon', start: 19, end: 23, location: 'Hong Kong' },
+        { time: '7:00 PM - 11:00 PM', event: 'Terry, Mason, Halim, and Eggsy (Alice Cheongdam – Seoul)', venue: 'Soho House', start: 19, end: 23, location: 'Hong Kong' },
+        { time: '8:00 PM - 11:00 PM', event: 'Seven Yi (Room by Le Kief – Taipei) & Hiroyasu Kayama (Bar Benfiddich – Tokyo)', venue: 'The Opposites', start: 20, end: 23, location: 'Hong Kong' },
+        { time: '8:00 PM - 11:00 PM', event: 'Jerrold Khoo & Cyrus Wang (Stay Gold – Singapore)', venue: 'Kinsman', start: 20, end: 23, location: 'Hong Kong' },
+        { time: '8:00 PM - 11:00 PM', event: 'Handshake Speakeasy (CDMX)', venue: 'Gokan', start: 20, end: 23, location: 'Hong Kong' },
+        { time: '8:00 PM - 11:00 PM', event: 'Backdoor Bodega (Penang)', venue: 'Tell Camellia', start: 20, end: 23, location: 'Hong Kong' },
+        { time: '8:00 PM - 11:00 PM', event: 'Bar Bud (Shanghai)', venue: 'Barcode', start: 20, end: 23, location: 'Hong Kong' },
+        { time: '8:00 PM - 11:00 PM', event: 'Rabbit Hole – Bangkok', venue: 'Dead Poets', start: 20, end: 23, location: 'Hong Kong' },
+        { time: '8:00 PM - 11:00 PM', event: 'Roy & Jude (Pomme Bar – Seoul)', venue: 'Orchard', start: 20, end: 23, location: 'Hong Kong' },
+        { time: '8:00 PM - 11:00 PM', event: 'Shaken & Sung', venue: 'The Green Door', start: 20, end: 23, location: 'Hong Kong' },
+        { time: '9:00 PM - 11:30 PM', event: 'Erika & Gabriel (Cat Bite Club – Singapore)', venue: 'The Old Man', start: 21, end: 23.5, location: 'Hong Kong' },
+        { time: '9:00 PM - 12:00 AM', event: 'Kei Takahashi & Michito Kaneko (Lamp Bar – Nara)', venue: 'Uncle Ming\'s', start: 21, end: 24, location: 'Hong Kong' },
+        { time: '9:00 PM - 1:00 AM', event: 'Yong Wei (Native – Singapore)', venue: 'Bar Patua', start: 21, end: 25, location: 'Macau' }
+    ],
+    'jul17': [
+        { time: '2:00 PM - 3:00 PM', event: 'Three Cents Master Class', venue: 'Taqueria Super Macho', start: 14, end: 15, location: 'Hong Kong' },
+        { time: '6:00 PM - 8:00 PM', event: 'Malt + Mixology Space (Seoul)', venue: 'Lobster Bar', start: 18, end: 20, location: 'Hong Kong' },
+        { time: '7:00 PM - 11:00 PM', event: 'Austen (Blotto)', venue: 'Not 2 Sweet', start: 19, end: 23, location: 'Hong Kong' },
+        { time: '8:00 PM - 10:00 PM', event: 'Bar Cham (Seoul)', venue: 'Lobster Bar', start: 20, end: 22, location: 'Hong Kong' },
+        { time: '8:00 PM - 11:00 PM', event: 'Ngo Kim Uyen (Ne – Hanoi) | Lam Duc Anh (Stir – HCMC)', venue: 'Ritz Carlton Bar and Lounge Macau', start: 20, end: 23, location: 'Macau' }
+    ]
+};
+
+const timetableDisplay = document.getElementById('timetable-display');
+const btnFri = document.getElementById('btn-fri');
+const btnSat = document.getElementById('btn-sat');
+const btnSun = document.getElementById('btn-sun');
+const btnJul15 = document.getElementById('btn-jul15');
+const btnJul16 = document.getElementById('btn-jul16');
+const btnJul17 = document.getElementById('btn-jul17');
+
+const btnHK = document.getElementById('btn-hk');
+const btnMacau = document.getElementById('btn-macau');
+
+let currentDay = 'jul16'; // Default to July 16
+let currentLocation = 'Hong Kong'; // Default to Hong Kong
+
+// Function to render the timetable for a given day and location filter
+function renderTimetable(dayEvents, dayName, locationFilter, minHour, maxHour) {
+    let filteredEvents = dayEvents.filter(event => event.location === locationFilter);
+
+    // If no events for the selected filter, show a message
+    if (filteredEvents.length === 0) {
+        timetableDisplay.innerHTML = `
+            <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">${dayName}</h2>
+            <p class="text-gray-600 text-center text-lg mt-8">No events found for ${locationFilter} on this day.</p>
+        `;
+        return;
+    }
+
+    let html = `
+        <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">${dayName} - ${locationFilter} Events</h2>
+        <div class="time-axis">
+    `;
+
+    // Generate time axis labels based on minHour and maxHour
+    for (let h = minHour; h <= maxHour; h++) {
+        let hourLabel;
+        if (h === 24) {
+            hourLabel = '12 AM'; // Midnight of the current day
+        } else if (h > 24) {
+            hourLabel = `${h - 24} AM (Next)`; // Hours into the next day
+        } else {
+            hourLabel = h % 12 === 0 ? 12 : h % 12;
+            hourLabel += h < 12 ? ' AM' : ' PM';
+        }
+        html += `<div class="time-label">${hourLabel}</div>`;
+    }
+    html += `</div><div class="relative pt-4">`; // Add padding top here to ensure event blocks don't overlap with time axis
+
+    // Sort events by their start time to ensure proper rendering
+    filteredEvents.sort((a, b) => a.start - b.start);
+
+    // Calculate overall duration for scaling
+    const totalDuration = maxHour - minHour;
+    const hourWidth = 100 / totalDuration; // Percentage width for one hour
+
+    // Render each event as a block
+    filteredEvents.forEach(event => {
+        const startTimeOffset = event.start - minHour;
+        const duration = event.end - event.start;
+        const leftPosition = startTimeOffset * hourWidth;
+        const width = duration * hourWidth;
+
+        // Ensure width and leftPosition are within valid range (0-100%)
+        const safeLeft = Math.max(0, Math.min(100, leftPosition));
+        const safeWidth = Math.max(0, Math.min(100 - safeLeft, width)); // Adjust width if it goes beyond 100%
+
+        html += `
+            <div class="event-row">
+                <div class="event-label">${event.venue}</div>
+                <div class="event-timeline relative">
+                    <div class="event-block" style="left: ${safeLeft}%; width: ${safeWidth}%;">
+                        <span>${event.event}</span>
+                        <div class="tooltip">
+                            <strong>${event.time}</strong><br>
+                            ${event.event}<br>
+                            at ${event.venue}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+
+    html += `</div>`; // Close relative div
+    timetableDisplay.innerHTML = html;
+}
+
+// Function to get min/max hours for a given day's events, considering the location filter
+function getMinMaxHours(eventsList, locationFilter) {
+    const filtered = eventsList.filter(event => event.location === locationFilter);
+    if (filtered.length === 0) return { min: 12, max: 24 }; // Default to a reasonable range if no filtered events
+
+    let min = filtered[0].start;
+    let max = filtered[0].end;
+
+    filtered.forEach(event => {
+        if (event.start < min) min = event.start;
+        if (event.end > max) max = event.end;
+    });
+    // Ensure the time range spans full hours, adjusting for events crossing midnight
+    return { min: Math.floor(min), max: Math.ceil(max) > 24 ? Math.ceil(max) : Math.ceil(max) };
+}
+
+// Event listeners for day buttons
+btnFri.addEventListener('click', () => {
+    currentDay = 'fri';
+    updateTimetable();
+    setActiveButtonDay('fri');
+});
+
+btnSat.addEventListener('click', () => {
+    currentDay = 'sat';
+    updateTimetable();
+    setActiveButtonDay('sat');
+});
+
+btnSun.addEventListener('click', () => {
+    currentDay = 'sun';
+    updateTimetable();
+    setActiveButtonDay('sun');
+});
+
+// New event listeners for July 15, 16 and 17
+btnJul15.addEventListener('click', () => {
+    currentDay = 'jul15';
+    updateTimetable();
+    setActiveButtonDay('jul15');
+});
+btnJul16.addEventListener('click', () => {
+    currentDay = 'jul16';
+    updateTimetable();
+    setActiveButtonDay('jul16');
+});
+
+btnJul17.addEventListener('click', () => {
+    currentDay = 'jul17';
+    updateTimetable();
+    setActiveButtonDay('jul17');
+});
+
+// Event listeners for location buttons
+btnHK.addEventListener('click', () => {
+    currentLocation = 'Hong Kong';
+    updateTimetable();
+    setActiveButtonLocation('hk');
+});
+
+btnMacau.addEventListener('click', () => {
+    currentLocation = 'Macau';
+    updateTimetable();
+    setActiveButtonLocation('macau');
+});
+
+// Main function to update the timetable based on current day and location
+function updateTimetable() {
+    const dayEvents = events[currentDay];
+    const { min, max } = getMinMaxHours(dayEvents, currentLocation);
+    let dayName = '';
+    if (currentDay === 'fri') dayName = 'Friday, July 11, 2025';
+    else if (currentDay === 'sat') dayName = 'Saturday, July 12, 2025';
+    else if (currentDay === 'sun') dayName = 'Sunday, July 13, 2025';
+    else if (currentDay === 'jul15') dayName = 'Tuesday, July 15, 2025';
+    else if (currentDay === 'jul16') dayName = 'Wednesday, July 16, 2025';
+    else if (currentDay === 'jul17') dayName = 'Thursday, July 17, 2025';
+
+    renderTimetable(dayEvents, dayName, currentLocation, min, max);
+}
+
+// Function to set active button styling for days
+function setActiveButtonDay(day) {
+    [btnFri, btnSat, btnSun, btnJul15, btnJul16, btnJul17].forEach(btn => {
+        btn.classList.remove('bg-blue-600', 'text-white', 'hover:bg-blue-700', 'focus:ring-blue-300');
+        btn.classList.add('bg-gray-300', 'text-gray-800', 'hover:bg-gray-400', 'focus:ring-gray-400');
+    });
+
+    let activeButton;
+    if (day === 'fri') activeButton = btnFri;
+    else if (day === 'sat') activeButton = btnSat;
+    else if (day === 'sun') activeButton = btnSun;
+    else if (day === 'jul15') activeButton = btnJul15;
+    else if (day === 'jul16') activeButton = btnJul16;
+    else if (day === 'jul17') activeButton = btnJul17;
+
+    if (activeButton) {
+        activeButton.classList.remove('bg-gray-300', 'text-gray-800', 'hover:bg-gray-400', 'focus:ring-gray-400');
+        activeButton.classList.add('bg-blue-600', 'text-white', 'hover:bg-blue-700', 'focus:ring-blue-300');
+    }
+}
+
+// Function to set active button styling for locations
+function setActiveButtonLocation(location) {
+    [btnHK, btnMacau].forEach(btn => {
+        btn.classList.remove('bg-blue-600', 'text-white', 'hover:bg-blue-700', 'focus:ring-blue-300');
+        btn.classList.add('bg-gray-300', 'text-gray-800', 'hover:bg-gray-400', 'focus:ring-gray-400');
+    });
+
+    let activeButton;
+    if (location === 'hk') activeButton = btnHK;
+    else if (location === 'macau') activeButton = btnMacau;
+
+    if (activeButton) {
+        activeButton.classList.remove('bg-gray-300', 'text-gray-800', 'hover:bg-gray-400', 'focus:ring-gray-400');
+        activeButton.classList.add('bg-blue-600', 'text-white', 'hover:bg-blue-700', 'focus:ring-blue-300');
+    }
+}
+
+// Initial render: Set July 16 as default day and Hong Kong as default location
+window.onload = function() {
+    setActiveButtonDay(currentDay);
+    setActiveButtonLocation(currentLocation === 'Hong Kong' ? 'hk' : 'macau');
+    updateTimetable();
+};
