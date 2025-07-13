@@ -1,95 +1,120 @@
 body {
-    font-family: 'Inter', sans-serif;
+    font-family: "Inter", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-/* Timetable container styles */
+/* Base styles for timetable container (mobile-first) */
 .timetable-container {
+    width: 100%; /* Full width on small screens */
+    overflow-x: auto; /* Enable horizontal scrolling */
     background-color: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    margin-bottom: 20px;
-    width: 100%; /* Allow full width */
-    overflow-x: auto; /* Enable horizontal scrolling if content is too wide */
+    border-radius: 0.75rem; /* rounded-lg */
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-xl */
+    padding: 1rem; /* p-4 */
+    margin-bottom: 2rem; /* mb-8 */
+    max-width: 100%; /* Ensure it doesn't overflow its parent on smaller screens */
+    box-sizing: border-box; /* Include padding in width calculation */
 }
 
-/* New wrapper for the grid to ensure min-width and proper grid layout */
+/* Grid wrapper for the actual timetable grid */
 .grid-wrapper {
     display: grid;
-    /* Use a min-width to ensure the timeline doesn't become too squished on small screens */
-    min-width: 900px; /* Ensures horizontal scroll appears if screen is smaller than this */
-    grid-template-rows: auto repeat(var(--num-events), minmax(60px, auto)); /* Adjust row height for events */
-    grid-template-columns: repeat(var(--num-hours), 1fr); /* Flexible columns */
-    gap: 1px; /* Gap between grid items */
-    background-color: #e2e8f0; /* Light gray for grid lines */
-    border-radius: 8px;
-    padding-top: 1px; /* Ensures top border effect */
+    /* This min-width ensures the hourly columns don't collapse on mobile, forcing overflow-x on parent */
+    min-width: 900px; /* Base width for the timeline, can be adjusted */
+    grid-template-columns: repeat(var(--num-hours), 1fr); /* Columns based on total hours */
+    grid-auto-rows: minmax(3rem, auto); /* Row height for events and labels */
+    gap: 0.5rem; /* Gap between grid items */
+    position: relative; /* For sticky time labels */
 }
 
-/* Time labels (header row) */
+/* Time labels at the top of the grid */
 .time-labels {
-    grid-column: 1 / -1; /* Spans across all time columns */
+    grid-column: 1 / -1; /* Span across all columns */
     display: flex;
     justify-content: space-between;
-    align-items: flex-end; /* Align labels to the bottom of their row */
-    padding-bottom: 5px;
-    position: sticky; /* Keep time labels visible when scrolling horizontally */
-    top: 0;
-    z-index: 10; /* Ensure labels are above event blocks */
-    background-color: #fff; /* Match container background */
-    border-bottom: 1px solid #cbd5e0; /* Separator line */
-    font-size: 0.85rem; /* Slightly smaller for mobile readability */
+    padding-bottom: 0.5rem; /* pb-2 */
+    font-weight: 600; /* font-semibold */
+    color: #4b5563; /* text-gray-700 */
+    position: sticky; /* Make time labels sticky */
+    top: 0; /* Stick to the top of its scrolling container */
+    background-color: #fff; /* Ensure it covers content when sticky */
+    z-index: 10; /* Ensure it's above event blocks when scrolling */
+    border-bottom: 1px solid #e5e7eb; /* subtle separator */
+    padding-top: 0.5rem; /* Add padding for better look when sticky */
 }
 
 .time-label {
-    flex: 1; /* Distribute space evenly */
-    text-align: center;
-    color: #4a5568;
-    font-weight: 500;
-    padding-top: 5px; /* Adjust padding for sticky header */
+    flex: 1; /* Distribute space equally */
+    text-align: left;
+    font-size: 0.75rem; /* text-xs */
+    white-space: nowrap; /* Prevent wrapping for time labels */
+    padding-right: 0.25rem; /* Small padding for spacing */
+}
+
+.time-label:last-child {
+    text-align: right;
+    padding-right: 0;
 }
 
 /* Event blocks */
 .event-block {
-    background-color: #63b3ed; /* Default blue for Hong Kong */
-    color: white;
-    border-radius: 6px;
-    padding: 6px 8px; /* Slightly smaller padding for mobile */
-    font-size: 0.75rem; /* Smaller font size for mobile */
-    overflow: hidden;
-    white-space: normal; /* Allow text wrapping */
-    text-overflow: ellipsis; /* Still use ellipsis for overflow on very short blocks */
-    word-wrap: break-word; /* Ensure words break if too long */
+    background-color: #d1d5db; /* bg-gray-300 default */
+    color: #1f2937; /* text-gray-900 default */
+    border-radius: 0.5rem; /* rounded-md */
+    padding: 0.5rem; /* p-2 */
+    font-size: 0.75rem; /* text-xs */
+    font-weight: 500; /* font-medium */
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* Hide overflow content */
     position: relative; /* For tooltip positioning */
-    z-index: 5; /* Ensure blocks are above grid lines */
+    cursor: help; /* Indicate it's interactive */
+    word-wrap: break-word; /* Allow text to wrap within the block */
+    white-space: normal; /* Override nowrap */
+    line-height: 1.2; /* Adjust line height for readability */
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); /* shadow-sm */
+    transition: transform 0.1s ease-in-out;
+}
+
+.event-block:hover {
+    transform: translateY(-2px); /* Slight lift on hover */
+}
+
+
+.event-block.hong-kong {
+    background-color: #6ee7b7; /* bg-emerald-300 */
+    color: #064e3b; /* text-emerald-900 */
+}
+
+.event-block.macau {
+    background-color: #fdba74; /* bg-orange-300 */
+    color: #7c2d12; /* text-orange-900 */
 }
 
 /* Tooltip styles */
-.event-block .tooltip {
+.tooltip {
     visibility: hidden;
     opacity: 0;
     background-color: rgba(0, 0, 0, 0.85);
     color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 8px; /* Adjust padding */
+    text-align: left;
+    border-radius: 0.375rem; /* rounded-md */
+    padding: 0.75rem 1rem; /* p-3 */
     position: absolute;
-    z-index: 20; /* Above event blocks */
-    bottom: 100%; /* Position above the event block */
+    z-index: 50; /* Higher than event blocks */
+    bottom: 110%; /* Position above the event block */
     left: 50%;
     transform: translateX(-50%);
-    transition: opacity 0.3s;
-    pointer-events: none; /* Allows clicks to pass through */
-    width: auto; /* Allow width to expand based on content */
-    max-width: 250px; /* Limit tooltip width */
-    white-space: normal; /* Ensure text wraps in tooltip */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    white-space: normal; /* Allow text to wrap */
+    word-wrap: break-word;
+    font-size: 0.875rem; /* text-sm */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    min-width: 180px; /* Ensure tooltip is wide enough */
+    max-width: 300px; /* Prevent it from being too wide */
 }
 
 .event-block:hover .tooltip {
@@ -97,37 +122,42 @@ body {
     opacity: 1;
 }
 
-/* Specific colors for locations */
-.event-block.hong-kong {
-    background-color: #4CAF50; /* Green for Hong Kong */
+/* Tooltip arrow */
+.tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.85) transparent transparent transparent;
 }
 
-.event-block.macau {
-    background-color: #FF9800; /* Orange for Macau */
-}
 
-/* Media Queries for larger screens (desktop enhancements) */
+/* Media query for larger screens (PC/Desktop look) */
 @media (min-width: 768px) {
     .timetable-container {
-        padding: 30px; /* More padding on larger screens */
+        width: 900px; /* Fixed width for desktop */
+        overflow-x: hidden; /* Disable horizontal scrolling on desktop */
+        padding: 1.5rem; /* p-6 */
     }
 
     .grid-wrapper {
-        min-width: unset; /* Remove min-width on desktop to allow it to fill 100% of container */
-        width: 100%; /* Ensure it fills container on desktop */
+        min-width: auto; /* No minimum width needed on desktop, let grid handle it */
+        /* Ensure the grid auto-fills all available space based on --num-hours */
+        grid-template-columns: repeat(var(--num-hours), 1fr);
+        grid-auto-rows: minmax(4rem, auto); /* Slightly taller rows for desktop */
+        gap: 0.75rem; /* Larger gap */
     }
 
-    .time-labels {
-        font-size: 1rem; /* Larger font for desktop */
+    .time-label {
+        font-size: 0.875rem; /* text-sm */
     }
 
     .event-block {
-        padding: 8px 10px; /* Larger padding on desktop */
-        font-size: 0.875rem; /* Larger font for desktop */
-    }
-
-    .event-block .tooltip {
-        font-size: 0.875rem; /* Larger font for tooltip on desktop */
-        max-width: 300px;
+        padding: 0.75rem; /* p-3 */
+        font-size: 0.875rem; /* text-sm */
     }
 }
+
