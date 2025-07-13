@@ -1,423 +1,359 @@
-// Data for events (updated from provided ICS file and previous data)
-const events = {
-    'fri': [ // Events from July 11
-        { name: 'Augustin Da Sambagio (Potato Head – Bali)', venue: 'Socio', start: 18.00, end: 20.00, location: 'Hong Kong' },
-        { name: 'Jigger & Pony (Singapore)', venue: 'The Macallan House', start: 18.50, end: 21.50, location: 'Hong Kong' },
-        { name: 'Lakeview Palace x Yong Fu x Tell Camellia Tea-Tales', venue: 'Lakeview Palace', start: 19.00, end: 21.00, location: 'Macau' },
-        { name: 'Julio Bermejo & Dre Masso', venue: 'Coa', start: 19.00, end: 22.00, location: 'Hong Kong' },
-        { name: 'Elliot Faber Takes Over Mizumi', venue: 'Wynn Palace Mizumi', start: 19.00, end: 23.00, location: 'Macau' },
-        { name: 'Atlas (Singapore)', venue: 'Lobster Bar', start: 19.00, end: 23.00, location: 'Hong Kong' },
-        { name: 'Nepal\'s Finest: Barc | Tell Camellia | Courtroom', venue: 'Wing Lei Bar', start: 20.00, end: 23.00, location: 'Macau' },
-        { name: 'Keegan McGregor\'s World Class Takeover', venue: 'SW Steakhouse', start: 20.00, end: 23.00, location: 'Macau' },
-        { name: 'Amanda Wan (Three X Co – Kuala Lumpur)', venue: 'Avoca', start: 20.00, end: 23.00, location: 'Hong Kong' },
-        { name: 'Bar Us (Bangkok)', venue: 'Green Room', start: 20.00, end: 23.00, location: 'Hong Kong' },
-        { name: 'Weiqin Li (Bathe Coffee)', venue: 'The Gallery Bar Macao', start: 21.00, end: 24.00, location: 'Macau' },
-    ],
-    'sat': [ // Events from July 12
-        { name: '8 Hands Industry Cocktails', venue: 'Avoca', start: 15.00, end: 17.00, location: 'Hong Kong' },
-        { name: 'Panjak Balachandran & Macleigh Rey Fernandes (Boilermaker – Goa)', venue: 'Bourke\'s', start: 17.00, end: 19.00, location: 'Hong Kong' },
-        { name: 'Chef Tam\'s Seasons x Bar Mood', venue: 'Chef Tam\'s Seasons', start: 18.00, end: 20.00, location: 'Macau' },
-        { name: 'Epic (Shanghai)', venue: 'The Old Man', start: 18.00, end: 20.00, location: 'Hong Kong' },
-        { name: 'Atlas (Singapore)', venue: 'The Macallan House', start: 18.50, end: 21.50, location: 'Hong Kong' },
-        { name: 'Drunken Fish x Maybe Sammy (50 Best Signature Sessions)', venue: 'Drunken Fish', start: 19.00, end: 21.00, location: 'Macau' },
-        { name: 'Wing Lei Bar Showcase: Mark Lloyd', venue: 'Wing Lei Bar', start: 19.00, end: 21.00, location: 'Macau' },
-        { name: 'Marco Dongi (Bar Sathorn – Bangkok)', venue: 'Ozone', start: 19.00, end: 21.00, location: 'Hong Kong' },
-        { name: 'Jigger & Pony (Singapore)', venue: 'Lobster Bar', start: 19.00, end: 23.00, location: 'Hong Kong' },
-        { name: 'Sober Company (Shanghai)', venue: 'Avoca', start: 20.00, end: 23.00, location: 'Hong Kong' },
-        { name: 'Hideaway Bar (Goa)', venue: 'Barcode', start: 20.00, end: 23.00, location: 'Hong Kong' },
-        { name: 'Shingo Sasaki (Sober Company – Shanghai)', venue: 'Ritz Carlton Bar and Lounge Macau', start: 20.00, end: 23.00, location: 'Macau' },
-        { name: 'Shin Lee & Ribo Lee (Bar Geranium – Seoul)', venue: '25:00', start: 20.00, end: 23.00, location: 'Hong Kong' },
-        { name: 'Santo Metodo (Zuma – Bangkok)', venue: 'The Wise King', start: 20.00, end: 24.00, location: 'Hong Kong' },
-        { name: 'Dave Lam (The Dolomite – Shenzhen)', venue: 'Bar Buonasera', start: 20.50, end: 23.50, location: 'Hong Kong' },
-        { name: 'Pera Srisuk (The Fool Speakeasy – Phuket)', venue: 'Foxglove', start: 20.50, end: 23.50, location: 'Hong Kong' },
-        { name: 'Orsu Loviconi & Awaraa Awarzed', venue: 'Roucou', start: 21.00, end: 23.00, location: 'Hong Kong' },
-        { name: 'Julio Bermejo & Sam Ross', venue: 'Wing Lei Bar', start: 21.00, end: 23.50, location: 'Macau' },
-        { name: 'Paul Zhang', venue: 'The Gallery Bar Macao', start: 21.00, end: 24.00, location: 'Macau' },
-        { name: 'Bar Pop-up: Teresa Cocktail Bar x ZLB23', venue: 'Palace Reserve Club', start: 22.00, end: 26.00, location: 'Macau' },
-        { name: 'Happy Accidents, PS40, Artesian Bar, Manhattan Bar', venue: 'The Aubrey', start: 22.50, end: 26.00, location: 'Hong Kong' },
-    ],
-    'sun': [ // Events from July 13 - UPDATED from ICS
-        { name: 'Atlas (Singapore) & Cosmo Pony (Jakarta)', venue: 'The Opposites', start: 16.00, end: 19.00, location: 'Hong Kong' },
-        { name: 'Maria Escobia & YS Lai (Penrose - Kuala Lumpur)', venue: 'Honky Tonks', start: 17.00, end: 18.50, location: 'Hong Kong' },
-        { name: 'Massimo Petovello (Mizunara - Hong Kong)', venue: 'Lala', start: 17.00, end: 19.00, location: 'Hong Kong' },
-        { name: 'Tina Liu (Swirl - Shanghai)', venue: 'Bourke’s', start: 17.00, end: 20.00, location: 'Hong Kong' },
-        { name: 'Savor the Art of Crafted Mixology with Award-Winning Bartenders', venue: 'Qura Bar, Lobby Floor, Regent Hong Kong', start: 17.00, end: 21.00, location: 'Hong Kong' },
-        { name: 'Obsidian Bar (Shenzhen)', venue: 'The Old Man', start: 18.00, end: 20.00, location: 'Hong Kong' },
-        { name: 'Junghoo Kim (MO Bar - Singapore)', venue: 'Sam Fancy', start: 18.00, end: 23.00, location: 'Hong Kong' },
-        { name: 'Arai Kazuhisa (Sober Company - Shanghai)', venue: 'Honky Tonks', start: 18.50, end: 20.00, location: 'Hong Kong' },
-        { name: 'Little Red Door (Paris)', venue: 'Terrible Baby', start: 19.00, end: 21.00, location: 'Hong Kong' },
-        { name: 'Jon Lee (Lavantha - Kuala Lumpur)', venue: 'The Daily Tot', start: 19.00, end: 22.00, location: 'Hong Kong' },
-        { name: 'Giselle Lee & Jez Carreon (Employees Only - Singapore)', venue: 'Woobar', start: 19.00, end: 22.00, location: 'Hong Kong' },
-        { name: 'Zest Seoul', venue: 'St. Regis Bar', start: 19.00, end: 24.00, location: 'Hong Kong' },
-        { name: 'Chanel Adams (Bamboo Bar) & Emma Thompson (Tropic City) [Bangkok]', venue: 'Honky Tonks', start: 20.00, end: 22.00, location: 'Hong Kong' },
-        { name: 'CMYK (Changsha) | Bar Blanc (Shanghai) | Pony Up (Shanghai)', venue: 'Cardinal Point', start: 20.00, end: 22.00, location: 'Hong Kong' },
-        { name: 'Analogue Initiative (Singapore)', venue: 'Avoca', start: 20.00, end: 23.00, location: 'Hong Kong' },
-        { name: 'Book Ing Bar (Taipei)', venue: 'The Poet', start: 20.00, end: 23.00, location: 'Hong Kong' },
-        { name: 'Sufian Mahmoud & Gedalya Rianto (Artesian Bar - Jakarta)', venue: 'Alibi', start: 20.00, end: 23.00, location: 'Hong Kong' },
-        { name: 'Vesper (Bangkok) | Reka (Kuala Lumpur)', venue: 'Darkside', start: 20.00, end: 23.00, location: 'Hong Kong' },
-        { name: 'Hats Bar (Jakarta)', venue: 'Barcode', start: 20.00, end: 23.00, location: 'Hong Kong' },
-        { name: 'Singapore Takeover: Gavin (Moga) | Mel & Khai (Bar Somma)', venue: 'Quinary', start: 20.00, end: 23.00, location: 'Hong Kong' },
-        { name: 'Opium - Bangkok', venue: 'Dead Poets', start: 20.00, end: 23.00, location: 'Hong Kong' },
-        { name: 'Amber & Cloris (The Public House - Taipei)', venue: 'Bar Oasis', start: 20.00, end: 23.00, location: 'Hong Kong' },
-        { name: 'Leo Seo & Kai Choi (Jangseang Healthy Bar - Seoul)', venue: 'The Polo Club', start: 21.00, end: 23.00, location: 'Hong Kong' },
-        { name: 'Schofield\'s | Hey Palu | Kwant', venue: 'Palace Reserve Club', start: 23.00, end: 25.00, location: 'Macau' },
-        { name: 'Laowai', venue: 'Wing Lei Bar', start: 23.50, end: 25.50, location: 'Macau' },
-    ],
-    'jul14': [ // Events from July 14 - ADDED from ICS
-        { name: 'Reoma Mita (SG Club - Tokyo) | Bastien Ciocca (Bar San You - Shenzhen)', venue: 'LPM', start: 15.00, end: 17.00, location: 'Hong Kong' },
-        { name: 'Writer\'s Bar (Singapore)', venue: 'Lockdown', start: 18.00, end: 20.00, location: 'Hong Kong' },
-        { name: 'Modern Haus (Jakarta)', venue: 'Penicillin', start: 18.00, end: 20.00, location: 'Hong Kong' },
-        { name: 'The Odd Couple (Shanghai) | G.O.D. (Bangkok)', venue: 'Zuma', start: 18.00, end: 22.00, location: 'Hong Kong' },
-        { name: 'Kansai Takeover: Lamp Bar', venue: 'Kinsman', start: 19.00, end: 21.00, location: 'Hong Kong' },
-        { name: 'Andy Yoon & Ryan Kim (Bar Tea Scent - Seoul)', venue: 'C108', start: 19.00, end: 21.00, location: 'Hong Kong' },
-        { name: 'Baia - Singapore', venue: 'Ella', start: 19.00, end: 22.00, location: 'Hong Kong' },
-        { name: 'Toru Ariyoshi and Hiro Yamada (The Bee\'s Knees - Kyoto)', venue: 'Woobar', start: 19.00, end: 22.00, location: 'Hong Kong' },
-        { name: 'Phoenix Gastro Bar & H bar (Jakarta)', venue: 'Lockdown', start: 20.00, end: 22.00, location: 'Hong Kong' },
-        { name: 'Hiroyasu Ogura (The Hisaka - Tokyo)', venue: '25:00', start: 20.00, end: 23.00, location: 'Hong Kong' },
-        { name: 'Semin Bae (Bar Jeong-On - Seoul', venue: '001', start: 20.00, end: 23.00, location: 'Hong Kong' },
-        { name: 'Paal - Shanghai', venue: 'Dead Poets', start: 20.00, end: 23.00, location: 'Hong Kong' },
-        { name: 'Vietnam Takeover: Leo (Stir) & Jimmy (Raw+Atelier)', venue: 'Quinary', start: 20.00, end: 23.00, location: 'Hong Kong' },
-        { name: 'Pedison Kao (Bar Without - Taipei) & Tonic Liu (Maltail - Kaohsiung)', venue: 'Bar Mind', start: 20.00, end: 23.00, location: 'Hong Kong' },
-        { name: 'Kavish (The Bar at 15 Stamford - Singapore)', venue: 'Thirsty Shaker', start: 20.00, end: 23.00, location: 'Hong Kong' },
-        { name: 'Giovanni Graziadei & Wong Wee Siong (Edition - Singapore)', venue: 'Skye Rooftop', start: 20.00, end: 23.00, location: 'Hong Kong' },
-        { name: 'Shinya Koba (Yakoboku - Kumamoto)', venue: 'Bar Butler', start: 20.00, end: 23.00, location: 'Hong Kong' },
-        { name: 'Bar Les Ambassadeurs & The Cambridge Public House (Paris)', venue: 'Darkside', start: 20.00, end: 23.00, location: 'Hong Kong' },
-        { name: 'Plume (Singapore)', venue: 'AOAO', start: 20.00, end: 24.00, location: 'Hong Kong' },
-        { name: 'Kansai Takeover: Bee\'s Knees', venue: 'Kinsman', start: 21.00, end: 23.00, location: 'Hong Kong' },
-        { name: 'Sophia Kang (Four Seasons - Singapore)', venue: 'The Polo Club', start: 21.00, end: 23.00, location: 'Hong Kong' },
-        { name: 'Austin Chien & Joie Lin (Under Lab - Taipei)', venue: 'Apothecary', start: 21.00, end: 23.00, location: 'Hong Kong' },
-        { name: 'Punch Room Tokyo - Edition Ginza Japan', venue: 'Mizunara The Library', start: 21.00, end: 23.50, location: 'Hong Kong' },
-        { name: 'Bae\'s Cocktail Club (Singapore)', venue: 'The Diplomat', start: 22.00, end: 25.00, location: 'Hong Kong' },
-        { name: 'Cat Bite Club (Singapore) | The Cocktail Club (Jakarta)', venue: 'Argo', start: 23.00, end: 26.00, location: 'Hong Kong' },
-    ],
-    'jul15': [ // Events from July 15 - UPDATED from ICS
-        { name: 'Chef Tam\'s Seasons x Masque x Sidecar', venue: 'Chef Tam\'s Seasons', start: 13.00, end: 15.00, location: 'Macau' },
-        { name: 'Asia’s 50 Best Bars', venue: 'Wynn Palace', start: 18.00, end: 22.00, location: 'Macau' },
-        { name: 'Bar Cham x Alice x Le Chamber x Pine & Co', venue: 'Long Bar, Galaxy Hotel', start: 20.50, end: 24.50, location: 'Macau' },
-        { name: 'Bae’s Cocktail Club (Singapore)', venue: 'The Diplomat', start: 22.00, end: 25.00, location: 'Hong Kong' },
-        { name: 'Taln & Aum (Bar Us – Bangkok)', venue: 'Mesa Bar, THE KARL LAGERFELD', start: 22.00, end: 25.00, location: 'Macau' },
-        { name: 'Cat Bite Club (Singapore) | Reka (Kuala Lumpur)', venue: 'St. Regis Bar Macau', start: 22.00, end: 24.00, location: 'Macau' },
-        { name: 'Official After Party: Freni e Frizioni | Vender | Bar Myung | Dead Poets', venue: 'Palace Reserve Club', start: 22.00, end: 26.00, location: 'Macau' },
-        { name: 'Nicola Lazzari & Giuseppe Destefano (1920 – Dubai)', venue: 'Mesa Bar, THE KARL LAGERFELD', start: 22.00, end: 26.00, location: 'Macau' },
-        { name: 'Cat Bite Club (Singapore) | The Cocktail Club (Jakarta)', venue: 'Argo', start: 23.00, end: 25.00, location: 'Hong Kong' },
-        { name: 'Torres Brandy After Party by Hope & Sesame, Two Moons, & Night Hawk', venue: 'Moon on Planet, Studio City Macau', start: 23.00, end: 27.50, location: 'Macau' },
-    ],
-    'jul16': [ // Events from July 16 - UPDATED from ICS
-        { name: 'Soko (Seoul) | Vesper (Bangkok)', venue: 'St. Regis Bar Macau', start: 0.00, end: 2.00, location: 'Macau' },
-        { name: 'Wing Lei Bar Showcase: Mark Lloyd', venue: 'Wing Lei Bar', start: 15.00, end: 17.00, location: 'Macau' },
-        { name: 'Locale Firenze (Florence) | Moebius (Milan)', venue: 'Bar Leone', start: 16.00, end: 19.00, location: 'Hong Kong' },
-        { name: 'Three Cents Guest Shift', venue: 'Penicillin', start: 18.00, end: 20.00, location: 'Hong Kong' },
-        { name: 'Soko & One (Bar Soko – Seoul)', venue: 'The Old Man', start: 18.00, end: 21.00, location: 'Hong Kong' },
-        { name: 'Wayne 安威 (Bar Hide – Taoyuan)', venue: 'Bar De Luxe', start: 19.00, end: 23.00, location: 'Hong Kong' },
-        { name: 'Ale May (Iron Balls – Bangkok)', venue: 'Paragon', start: 19.00, end: 23.00, location: 'Hong Kong' },
-        { name: 'Terry, Mason, Halim, and Eggsy (Alice Cheongdam – Seoul)', venue: 'Soho House', start: 19.00, end: 23.00, location: 'Hong Kong' },
-        { name: 'Seven Yi (Room by Le Kief – Taipei) & Hiroyasu Kayama (Bar Benfiddich – Tokyo)', venue: 'The Opposites', start: 20.00, end: 23.00, location: 'Hong Kong' },
-        { name: 'Jerrold Khoo & Cyrus Wang (Stay Gold – Singapore)', venue: 'Kinsman', start: 20.00, end: 23.00, location: 'Hong Kong' },
-        { name: '“Boom” Komsupat Sirijutalak & “Great” Putimon Sutiwech (Thaipioka - Bangkok)', venue: 'Zzura', start: 20.00, end: 23.00, location: 'Hong Kong' },
-        { name: 'Artesian Bar (London)', venue: 'Terrible Baby', start: 20.00, end: 23.00, location: 'Hong Kong' },
-        { name: 'Handshake Speakeasy (CDMX)', venue: 'Gokan', start: 20.00, end: 23.00, location: 'Hong Kong' },
-        { name: 'Backdoor Bodega (Penang)', venue: 'Tell Camellia', start: 20.00, end: 23.00, location: 'Hong Kong' },
-        { name: 'Bar Bud (Shanghai)', venue: 'Barcode', start: 20.00, end: 23.00, location: 'Hong Kong' },
-        { name: 'Rabbit Hole – Bangkok', venue: 'Dead Poets', start: 20.00, end: 23.00, location: 'Hong Kong' },
-        { name: 'Roy & Jude (Pomme Bar – Seoul)', venue: 'Orchard', start: 20.00, end: 23.00, location: 'Hong Kong' },
-        { name: 'Shaken & Sung', venue: 'The Green Door', start: 20.00, end: 23.00, location: 'Hong Kong' },
-        { name: 'Erika & Gabriel (Cat Bite Club – Singapore)', venue: 'The Old Man', start: 21.00, end: 23.50, location: 'Hong Kong' },
-        { name: 'Kei Takahashi & Michito Kaneko (Lamp Bar – Nara)', venue: 'Uncle Ming\'s', start: 21.00, end: 24.00, location: 'Hong Kong' },
-        { name: 'Yong Wei (Native – Singapore)', venue: 'Bar Patua', start: 21.00, end: 25.00, location: 'Macau' },
-    ],
-    'jul17': [ // Events from July 17 - UPDATED from ICS
-        { name: 'Three Cents Master Class', venue: 'Taqueria Super Macho', start: 14.00, end: 15.00, location: 'Hong Kong' },
-        { name: 'Malt + Mixology Space (Seoul)', venue: 'Lobster Bar', start: 18.00, end: 20.00, location: 'Hong Kong' },
-        { name: 'Austen (Blotto)', venue: 'Not 2 Sweet', start: 19.00, end: 23.00, location: 'Hong Kong' },
-        { name: 'Bar Cham (Seoul)', venue: 'Lobster Bar', start: 20.00, end: 22.00, location: 'Hong Kong' },
-        { name: 'May (Iron Balls The Parlour - Bangkok)', venue: 'The Pontiac', start: 20.00, end: 23.00, location: 'Hong Kong' },
-        { name: 'Darren Lim (Vender Bar - Taichung)', venue: 'Vibes', start: 21.00, end: 24.00, location: 'Hong Kong' },
-        { name: 'Le Chamber (Seoul)', venue: 'Lobster Bar', start: 22.00, end: 24.00, location: 'Hong Kong' },
-        { name: 'Ngo Kim Uyen (Ne – Hanoi) | Lam Duc Anh (Stir – HCMC)', venue: 'Ritz Carlton Bar and Lounge Macau', start: 20.00, end: 23.00, location: 'Macau' },
-    ]
-};
+document.addEventListener('DOMContentLoaded', () => {
+    // Initial data from ICS file for all events
+    // This will be replaced if an ICS URL is loaded
+    let events = {
+        'Jul 11': [
+            { location: 'Socio', name: 'Augustin Da Sambagio (Potato Head – Bali)', start: 18, end: 20, type: 'hong-kong' },
+            { location: 'The Macallan House', name: 'Jigger & Pony (Singapore)', start: 18.5, end: 21.5, type: 'hong-kong' },
+            { location: 'Lakeview Palace', name: 'Lakeview Palace x Yong Fu x Tell Camellia Tea-Tales', start: 19, end: 21, type: 'macau' },
+            { location: 'Coa', name: 'Julio Bermejo & Dre Masso', start: 19, end: 22, type: 'hong-kong' },
+            { location: 'Wynn Palace Mizumi', name: 'Elliot Faber Takes Over Mizumi', start: 19, end: 23, type: 'macau' },
+            { location: 'Lobster Bar', name: 'Atlas (Singapore)', start: 19, end: 23, type: 'hong-kong' },
+            { location: 'Wing Lei Bar', name: 'Nepal\'s Finest: Barc | Tell Camellia | Courtroom', start: 20, end: 23, type: 'macau' },
+            { location: 'SW Steakhouse', name: 'Keegan McGregor\'s World Class Takeover', start: 20, end: 23, type: 'macau' },
+            { location: 'Avoca', name: 'Amanda Wan (Three X Co – Kuala Lumpur)', start: 20, end: 23, type: 'hong-kong' },
+            { location: 'Green Room', name: 'Bar Us (Bangkok)', start: 20, end: 23, type: 'hong-kong' },
+            { location: 'The Gallery Bar Macao', name: 'Weiqin Li (Bathe Coffee)', start: 21, end: 24, type: 'macau' }
+        ],
+        'Jul 12': [
+            { location: 'Avoca', name: '8 Hands Industry Cocktails', start: 15, end: 17, type: 'hong-kong' },
+            { location: 'Bourke\'s', name: 'Panjak Balachandran & Macleigh Rey Fernandes (Boilermaker – Goa)', start: 17, end: 19, type: 'hong-kong' },
+            { location: 'Chef Tam\'s Seasons', name: 'Chef Tam\'s Seasons x Bar Mood', start: 18, end: 20, type: 'macau' },
+            { location: 'The Old Man', name: 'Epic (Shanghai)', start: 18, end: 20, type: 'hong-kong' },
+            { location: 'The Macallan House', name: 'Atlas (Singapore)', start: 18.5, end: 21.5, type: 'hong-kong' },
+            { location: 'Drunken Fish', name: 'Drunken Fish x Maybe Sammy (50 Best Signature Sessions)', start: 19, end: 21, type: 'macau' },
+            { location: 'Wing Lei Bar', name: 'Wing Lei Bar Showcase: Mark Lloyd', start: 19, end: 21, type: 'macau' },
+            { location: 'Ozone', name: 'Marco Dongi (Bar Sathorn – Bangkok)', start: 19, end: 21, type: 'hong-kong' },
+            { location: 'Lobster Bar', name: 'Jigger & Pony (Singapore)', start: 19, end: 23, type: 'hong-kong' },
+            { location: 'Avoca', name: 'Sober Company (Shanghai)', start: 20, end: 23, type: 'hong-kong' },
+            { location: 'Barcode', name: 'Hideaway Bar (Goa)', start: 20, end: 23, type: 'hong-kong' },
+            { location: 'Ritz Carlton Bar and Lounge Macau', name: 'Shingo Sasaki (Sober Company – Shanghai)', start: 20, end: 23, type: 'macau' },
+            { location: '25:00', name: 'Shin Lee & Ribo Lee (Bar Geranium – Seoul)', start: 20, end: 23, type: 'hong-kong' },
+            { location: 'The Wise King', name: 'Santo Metodo (Zuma – Bangkok)', start: 20, end: 24, type: 'hong-kong' },
+            { location: 'Bar Buonasera', name: 'Dave Lam (The Dolomite – Shenzhen)', start: 20.5, end: 23.5, type: 'hong-kong' },
+            { location: 'Foxglove', name: 'Pera Srisuk (The Fool Speakeasy – Phuket)', start: 20.5, end: 23.5, type: 'hong-kong' },
+            { location: 'Roucou', name: 'Orsu Loviconi & Awaraa Awarzed', start: 21, end: 23, type: 'hong-kong' },
+            { location: 'Wing Lei Bar', name: 'Julio Bermejo & Sam Ross', start: 21, end: 23.5, type: 'macau' },
+            { location: 'The Gallery Bar Macao', name: 'Paul Zhang', start: 21, end: 24, type: 'macau' },
+            { location: 'Palace Reserve Club', name: 'Bar Pop-up: Teresa Cocktail Bar x ZLB23', start: 22, end: 26, type: 'macau' },
+            { location: 'The Aubrey', name: 'Happy Accidents, PS40, Artesian Bar, Manhattan Bar', start: 22.5, end: 26, type: 'hong-kong' }
+        ],
+        'Jul 13': [
+            { location: 'Wynn Palace Mizumi', name: 'Sushi Mizumi x Martiny\'s (50 Best Signature Sessions)', start: 12, end: 14, type: 'macau' },
+            { location: 'The Opposites', name: 'Atlas (Singapore) & Cosmo Pony (Jakarta)', start: 16, end: 19, type: 'hong-kong' },
+            { location: 'Honky Tonks', name: 'Maria Escobia & YS Lai (Penrose - Kuala Lumpur)', start: 17, end: 18.5, type: 'hong-kong' },
+            { location: 'Lala', name: 'Massimo Petovello (Mizunara - Hong Kong)', start: 17, end: 19, type: 'hong-kong' },
+            { location: 'Bourke\'s', name: 'Tina Liu (Swirl - Shanghai)', start: 17, end: 20, type: 'hong-kong' },
+            { location: 'Qura Bar', name: 'Savor the Art of Crafted Mixology with Award-Winning Bartenders', start: 17, end: 21, type: 'hong-kong' },
+            { location: 'The Old Man', name: 'Obsidian Bar (Shenzhen)', start: 18, end: 20, type: 'hong-kong' },
+            { location: 'Sam Fancy', name: 'Junghoo Kim (MO Bar - Singapore)', start: 18, end: 23, type: 'hong-kong' },
+            { location: 'Honky Tonks', name: 'Arai Kazuhisa (Sober Company - Shanghai)', start: 18.5, end: 20, type: 'hong-kong' },
+            { location: 'Terrible Baby', name: 'Little Red Door (Paris)', start: 19, end: 21, type: 'hong-kong' },
+            { location: 'The Daily Tot', name: 'Jon Lee (Lavantha - Kuala Lumpur)', start: 19, end: 22, type: 'hong-kong' },
+            { location: 'Woobar', name: 'Giselle Lee & Jez Carreon (Employees Only - Singapore)', start: 19, end: 22, type: 'hong-kong' },
+            { location: 'St. Regis Bar', name: 'Zest Seoul', start: 19, end: 24, type: 'hong-kong' },
+            { location: 'Honky Tonks', name: 'Chanel Adams (Bamboo Bar) & Emma Thompson (Tropic City) [Bangkok]', start: 20, end: 22, type: 'hong-kong' },
+            { location: 'Cardinal Point', name: 'CMYK (Changsha) | Bar Blanc (Shanghai) | Pony Up (Shanghai)', start: 20, end: 22, type: 'hong-kong' },
+            { location: 'Avoca', name: 'Analogue Initiative (Singapore)', start: 20, end: 23, type: 'hong-kong' },
+            { location: 'The Poet', name: 'Book Ing Bar (Taipei)', start: 20, end: 23, type: 'hong-kong' },
+            { location: 'Alibi', name: 'Sufian Mahmoud & Gedalya Rianto (Artesian Bar - Jakarta)', start: 20, end: 23, type: 'hong-kong' },
+            { location: 'Darkside', name: 'Vesper (Bangkok) | Reka (Kuala Lumpur)', start: 20, end: 23, type: 'hong-kong' },
+            { location: 'Barcode', name: 'Hats Bar (Jakarta)', start: 20, end: 23, type: 'hong-kong' },
+            { location: 'Quinary', name: 'Singapore Takeover: Gavin (Moga) | Mel & Khai (Bar Somma)', start: 20, end: 23, type: 'hong-kong' },
+            { location: 'Dead Poets', name: 'Opium - Bangkok', start: 20, end: 23, type: 'hong-kong' },
+            { location: 'Bar Oasis', name: 'Amber & Cloris (The Public House - Taipei)', start: 20, end: 23, type: 'hong-kong' },
+            { location: 'The Polo Club', name: 'Leo Seo & Kai Choi (Jangseang Healthy Bar - Seoul)', start: 21, end: 23, type: 'hong-kong' },
+            { location: 'Wing Lei Bar', name: 'Rainbow Takeover: Mostly Harmless | Artifact', start: 15, end: 18, type: 'macau' },
+            { location: 'Palace Reserve Club', name: 'Honky Tonks Tavern | Potato Head Beach Club', start: 15, end: 18, type: 'macau' },
+            { location: 'Wing Lei Bar', name: 'Laowai', start: 23, end: 25, type: 'macau' },
+            { location: 'Wing Lei Bar', name: 'Bar Sathorn x OPM', start: 23.5, end: 25.5, type: 'macau' },
+            { location: 'Ritz Carlton Bar and Lounge Macau', name: 'Shingo Sasaki (Sober Company – Shanghai) & Andy Chu (One or Two Bar – Melbourne)', start: 20.5, end: 23.5, type: 'macau' },
+            { location: 'Wynn Palace Mizumi', name: 'Iichiko Takeover: Holly Graham & Beckaly Franks', start: 22, end: 26, type: 'macau' }
+        ],
+        'Jul 14': [
+            { location: 'LPM', name: 'Reoma Mita (SG Club - Tokyo) | Bastien Ciocca (Bar San You - Shenzhen)', start: 15, end: 17, type: 'hong-kong' },
+            { location: 'Lockdown', name: 'Writer\'s Bar (Singapore)', start: 18, end: 20, type: 'hong-kong' },
+            { location: 'Penicillin', name: 'Modern Haus (Jakarta)', start: 18, end: 20, type: 'hong-kong' },
+            { location: 'Zuma', name: 'The Odd Couple (Shanghai) | G.O.D. (Bangkok)', start: 18, end: 22, type: 'hong-kong' },
+            { location: 'Kinsman', name: 'Kansai Takeover: Lamp Bar', start: 19, end: 21, type: 'hong-kong' },
+            { location: 'C108', name: 'Andy Yoon & Ryan Kim (Bar Tea Scent - Seoul)', start: 19, end: 21, type: 'hong-kong' },
+            { location: 'Ella', name: 'Baia - Singapore', start: 19, end: 22, type: 'hong-kong' },
+            { location: 'Woobar', name: 'Toru Ariyoshi and Hiro Yamada (The Bee\'s Knees - Kyoto)', start: 19, end: 22, type: 'hong-kong' },
+            { location: 'Lockdown', name: 'Phoenix Gastro Bar & H bar (Jakarta)', start: 20, end: 22, type: 'hong-kong' },
+            { location: '25:00', name: 'Hiroyasu Ogura (The Hisaka - Tokyo)', start: 20, end: 23, type: 'hong-kong' },
+            { location: '001', name: 'Semin Bae (Bar Jeong-On - Seoul', start: 20, end: 23, type: 'hong-kong' },
+            { location: 'Dead Poets', name: 'Paal - Shanghai', start: 20, end: 23, type: 'hong-kong' },
+            { location: 'Quinary', name: 'Vietnam Takeover: Leo (Stir) & Jimmy (Raw+Atelier)', start: 20, end: 23, type: 'hong-kong' },
+            { location: 'Bar Mind', name: 'Pedison Kao (Bar Without - Taipei) & Tonic Liu (Maltail - Kaohsiung)', start: 20, end: 23, type: 'hong-kong' },
+            { location: 'Thirsty Shaker', name: 'Kavish (The Bar at 15 Stamford - Singapore)', start: 20, end: 23, type: 'hong-kong' },
+            { location: 'Skye Rooftop', name: 'Giovanni Graziadei & Wong Wee Siong (Edition - Singapore)', start: 20, end: 23, type: 'hong-kong' },
+            { location: 'Bar Butler', name: 'Shinya Koba (Yakoboku - Kumamoto)', start: 20, end: 23, type: 'hong-kong' },
+            { location: 'Darkside', name: 'Bar Les Ambassadeurs & The Cambridge Public House (Paris)', start: 20, end: 23, type: 'hong-kong' },
+            { location: 'AOAO', name: 'Plume (Singapore)', start: 20, end: 24, type: 'hong-kong' },
+            { location: 'Kinsman', name: 'Kansai Takeover: Bee\'s Knees', start: 21, end: 23, type: 'hong-kong' },
+            { location: 'The Polo Club', name: 'Sophia Kang (Four Seasons - Singapore)', start: 21, end: 23, type: 'hong-kong' },
+            { location: 'Apothecary', name: 'Austin Chien & Joie Lin (Under Lab - Taipei)', start: 21, end: 23, type: 'hong-kong' },
+            { location: 'Mizunara The Library', name: 'Punch Room Tokyo - Edition Ginza Japan', start: 21, end: 23.5, type: 'hong-kong' },
+            { location: 'The Diplomat', name: 'Bae\'s Cocktail Club (Singapore)', start: 22, end: 25, type: 'hong-kong' },
+            { location: 'Argo', name: 'Cat Bite Club (Singapore) | The Cocktail Club (Jakarta)', start: 23, end: 26, type: 'hong-kong' }
+        ],
+        'Jul 15': [
+            { location: 'Chef Tam\'s Seasons', name: 'Chef Tam\'s Seasons x Masque x Sidecar', start: 13, end: 15, type: 'macau' },
+            { location: 'Wynn Palace', name: 'Asia\'s 50 Best Bars', start: 18, end: 22, type: 'macau' },
+            { location: 'Long Bar, Galaxy Hotel', name: 'Bar Cham x Alice x Le Chamber x Pine & Co', start: 20.5, end: 24.5, type: 'macau' },
+            { location: 'Mesa Bar', name: 'Taln & Aum (Bar Us – Bangkok)', start: 22, end: 25, type: 'macau' },
+            { location: 'St. Regis Bar Macau', name: 'Cat Bite Club (Singapore) | Reka (Kuala Lumpur)', start: 22, end: 24, type: 'macau' },
+            { location: 'Palace Reserve Club', name: 'Official After Party: Freni e Frizioni | Vender | Bar Myung | Dead Poets', start: 22, end: 26, type: 'macau' },
+            { location: 'Mesa Bar', name: 'Nicola Lazzari & Giuseppe Destefano (1920 – Dubai)', start: 22, end: 26, type: 'macau' },
+            { location: 'Moon on Planet', name: 'Torres Brandy After Party by Hope & Sesame, Two Moons, & Night Hawk', start: 23, end: 27.5, type: 'macau' },
+            { location: 'The Diplomat', name: 'Bae’s Cocktail Club (Singapore)', start: 22, end: 25, type: 'hong-kong' },
+            { location: 'Argo', name: 'Cat Bite Club (Singapore) | The Cocktail Club (Jakarta)', start: 23, end: 25, type: 'hong-kong' }
+        ],
+        'Jul 16': [
+            { location: 'St. Regis Bar Macau', name: 'Soko (Seoul) | Vesper (Bangkok)', start: 0, end: 2, type: 'macau' },
+            { location: 'Wing Lei Bar', name: 'Wing Lei Bar Showcase: Mark Lloyd', start: 15, end: 17, type: 'macau' },
+            { location: 'Bar Leone', name: 'Locale Firenze (Florence) | Moebius (Milan)', start: 16, end: 19, type: 'hong-kong' },
+            { location: 'Penicillin', name: 'Three Cents Guest Shift', start: 18, end: 20, type: 'hong-kong' },
+            { location: 'The Old Man', name: 'Soko & One (Bar Soko - Seoul)', start: 18, end: 21, type: 'hong-kong' },
+            { location: 'Bar De Luxe', name: 'Wayne 安威 (Bar Hide - Taoyuan)', start: 19, end: 23, type: 'hong-kong' },
+            { location: 'Paragon', name: 'Ale May (Iron Balls - Bangkok)', start: 19, end: 23, type: 'hong-kong' },
+            { location: 'Soho House', name: 'Terry, Mason, Halim, and Eggsy (Alice Cheongdam - Seoul)', start: 19, end: 23, type: 'hong-kong' },
+            { location: 'The Opposites', name: 'Seven Yi (Room by Le Kief - Taipei) & Hiroyasu Kayama (Bar Benfiddich - Tokyo)', start: 20, end: 23, type: 'hong-kong' },
+            { location: 'Kinsman', name: 'Jerrold Khoo & Cyrus Wang (Stay Gold - Singapore)', start: 20, end: 23, type: 'hong-kong' },
+            { location: 'Zzura', name: '"Boom" Komsupat Sirijutalak & "Great" Putimon Sutiwech (Thaipioka - Bangkok)', start: 20, end: 23, type: 'hong-kong' },
+            { location: 'Terrible Baby', name: 'Artesian Bar (London)', start: 20, end: 23, type: 'hong-kong' },
+            { location: 'Gokan', name: 'Handshake Speakeasy (CDMX)', start: 20, end: 23, type: 'hong-kong' },
+            { location: 'Tell Camellia', name: 'Backdoor Bodega (Penang)', start: 20, end: 23, type: 'hong-kong' },
+            { location: 'Barcode', name: 'Bar Bud (Shanghai)', start: 20, end: 23, type: 'hong-kong' },
+            { location: 'Dead Poets', name: 'Rabbit Hole - Bangkok', start: 20, end: 23, type: 'hong-kong' },
+            { location: 'Orchard', name: 'Roy & Jude (Pomme Bar - Seoul)', start: 20, end: 23, type: 'hong-kong' },
+            { location: 'The Green Door', name: 'Shaken & Sung', start: 20, end: 23, type: 'hong-kong' },
+            { location: 'The Old Man', name: 'Erika & Gabriel (Cat Bite Club - Singapore)', start: 21, end: 23.5, type: 'hong-kong' },
+            { location: 'Uncle Ming’s', name: 'Kei Takahashi & Michito Kaneko (Lamp Bar - Nara)', start: 21, end: 24, type: 'hong-kong' }
+        ],
+        'Jul 17': [
+            { location: 'Taqueria Super Macho', name: 'Three Cents Master Class', start: 14, end: 15, type: 'hong-kong' },
+            { location: 'Lobster Bar', name: 'Malt + Mixology Space (Seoul)', start: 18, end: 20, type: 'hong-kong' },
+            { location: 'Not 2 Sweet', name: 'Austen (Blotto)', start: 19, end: 23, type: 'hong-kong' },
+            { location: 'Lobster Bar', name: 'Bar Cham (Seoul)', start: 20, end: 22, type: 'hong-kong' },
+            { location: 'The Pontiac', name: 'May (Iron Balls The Parlour - Bangkok)', start: 20, end: 23, type: 'hong-kong' },
+            { location: 'Vibes', name: 'Darren Lim (Vender Bar - Taichung)', start: 21, end: 24, type: 'hong-kong' },
+            { location: 'Lobster Bar', name: 'Le Chamber (Seoul)', start: 22, end: 24, type: 'hong-kong' }
+        ]
+    };
 
-const timetableDisplay = document.getElementById('timetable-display');
-const btnFri = document.getElementById('btn-fri');
-const btnSat = document.getElementById('btn-sat');
-const btnSun = document.getElementById('btn-sun');
-const btnJul15 = document.getElementById('btn-jul15');
-const btnJul16 = document.getElementById('btn-jul16');
-const btnJul17 = document.getElementById('btn-jul17');
-const btnHk = document.getElementById('btn-hk');
-const btnMacau = document.getElementById('btn-macau');
+    let currentDay = 'Jul 11'; // Default to Friday
+    let currentLocation = 'Hong Kong'; // Default to Hong Kong
 
-// New elements for ICS loading
-const icsUrlInput = document.getElementById('ics-url-input');
-const loadIcsBtn = document.getElementById('load-ics-btn');
-const icsMessage = document.getElementById('ics-message');
+    const timetableDisplay = document.getElementById('timetable-display');
 
+    // Function to parse ICS data (simplified)
+    const parseICS = (icsContent) => {
+        const lines = icsContent.split('\n');
+        const parsedEvents = [];
+        let currentEvent = {};
 
-let currentDay = 'jul16'; // Default to Wednesday, Jul 16
-let currentLocation = 'hong-kong'; // Default to Hong Kong Events
+        lines.forEach(line => {
+            line = line.trim();
+            if (line.startsWith('BEGIN:VEVENT')) {
+                currentEvent = {};
+            } else if (line.startsWith('END:VEVENT')) {
+                if (currentEvent.SUMMARY && currentEvent.DTSTART && currentEvent.DTEND && currentEvent.LOCATION) {
+                    const startDate = new Date(currentEvent.DTSTART.replace(/(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})Z?/, '$1-$2-$3T$4:$5:$6Z'));
+                    const endDate = new Date(currentEvent.DTEND.replace(/(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})Z?/, '$1-$2-$3T$4:$5:$6Z'));
 
-// Function to parse ICS content
-function parseIcsContent(icsText) {
-    const parsedEvents = {};
-    const lines = icsText.split('\n').map(line => line.trim());
-    let currentEvent = null;
+                    // Check if the event is within the desired range (July 11 to July 17, 2025)
+                    const eventDate = startDate.getDate();
+                    const eventMonth = startDate.getMonth(); // 0-indexed
+                    const eventYear = startDate.getFullYear();
 
-    lines.forEach(line => {
-        if (line === 'BEGIN:VEVENT') {
-            currentEvent = {};
-        } else if (line === 'END:VEVENT' && currentEvent) {
-            const summary = currentEvent.SUMMARY || 'Unknown Event';
-            const location = currentEvent.LOCATION || 'Unknown Venue';
-            const dtStart = currentEvent.DTSTART;
-            const dtEnd = currentEvent.DTEND;
+                    if (eventYear === 2025 && eventMonth === 6 && eventDate >= 11 && eventDate <= 17) { // Month 6 is July
+                        const dayKey = `Jul ${eventDate}`;
+                        const startTime = startDate.getHours() + startDate.getMinutes() / 60;
+                        const endTime = endDate.getHours() + endDate.getMinutes() / 60;
+                        const locationLower = currentEvent.LOCATION.toLowerCase();
+                        const type = locationLower.includes('macau') ? 'macau' : 'hong-kong';
 
-            if (dtStart && dtEnd) {
-                const startDate = parseIcsDateTime(dtStart);
-                const endDate = parseIcsDateTime(dtEnd);
-
-                const eventDayKey = `jul${startDate.getDate()}`; // e.g., 'jul11', 'jul12'
-                
-                // Map day of week to our existing keys if date is July 11-13
-                if (startDate.getMonth() === 6) { // Month is 0-indexed (July is 6)
-                    if (startDate.getDate() === 11) eventDayKey = 'fri';
-                    else if (startDate.getDate() === 12) eventDayKey = 'sat';
-                    else if (startDate.getDate() === 13) eventDayKey = 'sun';
+                        parsedEvents.push({
+                            date: dayKey,
+                            location: currentEvent.LOCATION.split('\\,')[0].trim(), // Take first part before comma
+                            name: currentEvent.SUMMARY,
+                            start: startTime,
+                            end: endTime,
+                            type: type,
+                            fullLocation: currentEvent.LOCATION // Store full location for tooltip
+                        });
+                    }
                 }
-
-                if (!parsedEvents[eventDayKey]) {
-                    parsedEvents[eventDayKey] = [];
-                }
-
-                // Simple location detection
-                const eventLocationType = location.toLowerCase().includes('macau') ? 'Macau' : 'Hong Kong';
-
-                parsedEvents[eventDayKey].push({
-                    name: summary,
-                    venue: location, // Use raw location for venue, as ICS doesn't separate
-                    start: startDate.getHours() + startDate.getMinutes() / 60,
-                    end: endDate.getHours() + endDate.getMinutes() / 60,
-                    location: eventLocationType
-                });
+            } else if (line.includes(':')) {
+                const parts = line.split(':');
+                const key = parts[0].split(';')[0]; // Handle properties with parameters like DTSTART;TZID
+                const value = parts.slice(1).join(':');
+                currentEvent[key] = value;
             }
-            currentEvent = null;
-        } else if (currentEvent) {
-            const parts = line.split(':');
-            if (parts.length > 1) {
-                const key = parts[0].split(';')[0]; // Handle properties like DTSTART;TZID=...
-                currentEvent[key] = parts.slice(1).join(':');
+        });
+        return parsedEvents;
+    };
+
+
+    // Function to update the events data from parsed ICS data
+    const updateEventsFromICS = (icsEvents) => {
+        // Clear existing events for the relevant dates
+        for (let i = 11; i <= 17; i++) {
+            events[`Jul ${i}`] = [];
+        }
+
+        icsEvents.forEach(event => {
+            if (!events[event.date]) {
+                events[event.date] = [];
             }
+            events[event.date].push(event);
+        });
+
+        // Ensure events are sorted by start time
+        for (const day in events) {
+            events[day].sort((a, b) => a.start - b.start);
         }
-    });
-    return parsedEvents;
-}
+        updateTimetable();
+    };
 
-// Helper to parse ICS date-time format (YYYYMMDDTHHMMSSZ or YYYYMMDDTHHMMSS)
-function parseIcsDateTime(dtString) {
-    // Remove 'Z' if present for UTC, or handle timezones properly if needed.
-    // For simplicity, treating as local time for now to match existing data.
-    const year = parseInt(dtString.substring(0, 4));
-    const month = parseInt(dtString.substring(4, 6)) - 1; // Month is 0-indexed
-    const day = parseInt(dtString.substring(6, 8));
-    const hour = parseInt(dtString.substring(9, 11));
-    const minute = parseInt(dtString.substring(11, 13));
-    const second = parseInt(dtString.substring(13, 15));
+    // // Event listener for the ICS Load button
+    // const loadIcsBtn = document.getElementById('load-ics-btn');
+    // const icsUrlInput = document.getElementById('ics-url-input');
+    // const icsMessage = document.getElementById('ics-message');
 
-    return new Date(year, month, day, hour, minute, second);
-}
+    // loadIcsBtn.addEventListener('click', async () => {
+    //     const icsUrl = icsUrlInput.value.trim();
+    //     if (icsUrl) {
+    //         icsMessage.textContent = 'Loading ICS data...';
+    //         icsMessage.className = 'text-sm text-blue-600 mt-2';
+    //         try {
+    //             // Simple CORS proxy if direct fetch fails due to CORS
+    //             const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(icsUrl)}`;
+    //             const response = await fetch(proxyUrl);
+    //             if (!response.ok) {
+    //                 throw new Error(`HTTP error! status: ${response.status}`);
+    //             }
+    //             const icsContent = await response.text();
+    //             const newEvents = parseICS(icsContent);
+    //             updateEventsFromICS(newEvents);
+    //             icsMessage.textContent = 'ICS data loaded successfully!';
+    //             icsMessage.className = 'text-sm text-green-600 mt-2';
+    //         } catch (error) {
+    //             console.error('Error loading ICS:', error);
+    //             icsMessage.textContent = `Failed to load ICS data: ${error.message}. Check URL and CORS policy.`;
+    //             icsMessage.className = 'text-sm text-red-600 mt-2';
+    //         }
+    //     } else {
+    //         icsMessage.textContent = 'Please enter an ICS URL.';
+    //         icsMessage.className = 'text-sm text-red-600 mt-2';
+    //     }
+    // });
 
 
-// Function to fetch and process ICS data
-async function loadIcsData() {
-    const icsUrl = icsUrlInput.value.trim();
-    if (!icsUrl) {
-        icsMessage.textContent = 'Please enter an ICS URL.';
-        icsMessage.className = 'text-sm text-red-600';
-        return;
-    }
+    const renderTimetable = () => {
+        const eventsForDay = events[currentDay] || [];
+        const filteredEvents = eventsForDay.filter(event => {
+            if (currentLocation === 'Hong Kong' && event.type === 'hong-kong') return true;
+            if (currentLocation === 'Macau' && event.type === 'macau') return true;
+            return false;
+        });
 
-    icsMessage.textContent = 'Loading ICS data...';
-    icsMessage.className = 'text-sm text-blue-600';
+        timetableDisplay.innerHTML = ''; // Clear previous timetable
 
-    try {
-        const response = await fetch(icsUrl);
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+        if (filteredEvents.length === 0) {
+            timetableDisplay.innerHTML = `<p class="text-gray-600 text-center py-8">No events listed for ${currentDay} in ${currentLocation}.</p>`;
+            return;
         }
-        const icsText = await response.text();
-        const newEvents = parseIcsContent(icsText);
 
-        // Merge new events into existing events data
-        for (const day in newEvents) {
-            if (events[day]) {
-                // Overwrite events for that day with ICS data
-                events[day] = newEvents[day];
-            } else {
-                events[day] = newEvents[day];
-            }
+        const startHour = 12; // 12 PM (noon)
+        const endHour = 26; // 2 AM (next day)
+        const totalHours = endHour - startHour;
+
+        const gridWrapper = document.createElement('div');
+        gridWrapper.classList.add('grid-wrapper');
+        gridWrapper.style.setProperty('--num-hours', totalHours);
+
+        // Add time labels
+        const timeLabelsDiv = document.createElement('div');
+        timeLabelsDiv.classList.add('time-labels');
+        for (let i = startHour; i <= endHour; i++) {
+            const timeLabel = document.createElement('div');
+            timeLabel.classList.add('time-label');
+            const displayHour = i > 24 ? i - 24 : i; // Handle 24 as 0 (midnight) or 25/26 as 1/2 AM
+            const ampm = i < 24 ? (i < 12 ? 'AM' : 'PM') : 'AM'; // Adjust AM/PM for hours past midnight
+            const actualDisplayHour = displayHour > 12 ? displayHour - 12 : (displayHour === 0 ? 12 : displayHour);
+            timeLabel.textContent = `${actualDisplayHour}:00${ampm}`;
+            timeLabelsDiv.appendChild(timeLabel);
         }
+        gridWrapper.appendChild(timeLabelsDiv);
 
-        icsMessage.textContent = 'ICS data loaded successfully!';
-        icsMessage.className = 'text-sm text-green-600';
-        updateTimetable(); // Re-render with new data
-    } catch (error) {
-        icsMessage.textContent = `Failed to load ICS data: ${error.message}. Check URL and CORS settings.`;
-        icsMessage.className = 'text-sm text-red-600';
-        console.error('ICS loading error:', error);
-    }
-}
+        // Add event blocks
+        filteredEvents.forEach(event => {
+            const eventDiv = document.createElement('div');
+            eventDiv.classList.add('event-block', event.type);
 
+            const startGridColumn = (event.start - startHour) + 1;
+            const endGridColumn = (event.end - startHour) + 1;
+            eventDiv.style.gridColumnStart = startGridColumn;
+            eventDiv.style.gridColumnEnd = endGridColumn;
 
-// Function to render the timetable
-function renderTimetable() {
-    const selectedEvents = events[currentDay].filter(event => {
-        if (currentLocation === 'hong-kong') {
-            return event.location === 'Hong Kong';
-        } else if (currentLocation === 'macau') {
-            return event.location === 'Macau';
-        }
-        return true; // Should not happen with current logic, but as a fallback
-    });
+            // Display only the event name in the bubble
+            eventDiv.innerHTML = event.name;
 
-    // Clear previous timetable
-    timetableDisplay.innerHTML = '';
+            // Tooltip
+            const tooltip = document.createElement('div');
+            tooltip.classList.add('tooltip');
+            tooltip.innerHTML = `
+                <p class="font-bold">${event.name}</p>
+                <p>Venue: ${event.fullLocation || event.location}</p>
+                <p>Time: ${formatTime(event.start)} - ${formatTime(event.end)}</p>
+            `;
+            eventDiv.appendChild(tooltip);
 
-    if (selectedEvents.length === 0) {
-        timetableDisplay.innerHTML = `<p class="text-gray-600 text-center py-8">No events listed for ${currentDay.replace('fri', 'Friday, July 11').replace('sat', 'Saturday, July 12').replace('sun', 'Sunday, July 13').replace('jul15', 'Tuesday, July 15').replace('jul16', 'Wednesday, July 16').replace('jul17', 'Thursday, July 17')} in ${currentLocation === 'hong-kong' ? 'Hong Kong' : 'Macau'}.</p>`;
-        return;
-    }
+            gridWrapper.appendChild(eventDiv);
+        });
 
-    // Determine min/max hours for the timeline based on filtered events
-    let minHour = 24;
-    let maxHour = 0;
-    selectedEvents.forEach(event => {
-        minHour = Math.floor(Math.min(minHour, event.start));
-        maxHour = Math.ceil(Math.max(maxHour, event.end));
-    });
+        timetableDisplay.appendChild(gridWrapper);
+    };
 
-    // Adjust maxHour if range is too small (e.g., all events finish early)
-    if (maxHour - minHour < 4) { // Ensure at least a 4-hour display
-        if (minHour > 0) minHour = Math.max(0, maxHour - 4);
-        else maxHour = Math.min(24, minHour + 4);
-    }
-    // Ensure at least 6 hours are shown
-    if (maxHour - minHour < 6) {
-        maxHour = Math.min(26, minHour + 6); // Max 26 for events crossing midnight slightly
-        if (maxHour - minHour < 6) { // If still less than 6, try extending minHour
-             minHour = Math.max(0, maxHour - 6);
-        }
-    }
+    const formatTime = (time) => {
+        const hours = Math.floor(time);
+        const minutes = (time - hours) * 60;
+        const ampm = hours < 24 ? (hours < 12 ? 'AM' : 'PM') : 'AM'; // Handle hours past midnight
+        const displayHours = hours > 12 ? hours - 12 : (hours === 0 ? 12 : hours); // Convert to 12-hour format
+        return `${displayHours}:${minutes.toString().padStart(2, '0')}${ampm}`;
+    };
 
 
-    const numHours = maxHour - minHour;
+    const updateTimetable = () => {
+        // Update button active states
+        document.querySelectorAll('button[id^="btn-"]').forEach(button => {
+            button.classList.remove('bg-blue-600', 'text-white');
+            button.classList.add('bg-gray-300', 'text-gray-800');
+        });
 
-    // Create the grid wrapper
-    const gridWrapper = document.createElement('div');
-    gridWrapper.classList.add('grid-wrapper');
-    gridWrapper.style.setProperty('--num-hours', numHours);
-    gridWrapper.style.setProperty('--num-events', selectedEvents.length + 1); // +1 for time labels row
+        document.getElementById(`btn-${currentDay.replace(' ', '').toLowerCase()}`).classList.remove('bg-gray-300', 'text-gray-800');
+        document.getElementById(`btn-${currentDay.replace(' ', '').toLowerCase()}`).classList.add('bg-blue-600', 'text-white');
 
-    // Add time labels
-    const timeLabelsContainer = document.createElement('div');
-    timeLabelsContainer.classList.add('time-labels');
-    for (let h = minHour; h <= maxHour; h++) {
-        const timeLabel = document.createElement('div');
-        timeLabel.classList.add('time-label');
-        let displayHour = h % 24;
-        if (displayHour < 0) displayHour += 24; // Handle negative hours if any event starts before 0:00 (e.g. 23:00 - 02:00)
-        timeLabel.textContent = `${String(displayHour).padStart(2, '0')}:00`;
-        timeLabelsContainer.appendChild(timeLabel);
-    }
-    gridWrapper.appendChild(timeLabelsContainer);
+        document.getElementById(`btn-${currentLocation.toLowerCase()}`).classList.remove('bg-gray-300', 'text-gray-800');
+        document.getElementById(`btn-${currentLocation.toLowerCase()}`).classList.add('bg-blue-600', 'text-white');
 
+        renderTimetable();
+    };
 
-    // Add event blocks
-    selectedEvents.forEach((event, index) => {
-        const startCol = ((event.start - minHour) / numHours) * numHours + 1; // Column start
-        const endCol = ((event.end - minHour) / numHours) * numHours + 1; // Column end
-        const row = index + 2; // Rows start from 1, time labels are row 1
+    // Event listeners for day buttons
+    document.getElementById('btn-fri').addEventListener('click', () => { currentDay = 'Jul 11'; updateTimetable(); });
+    document.getElementById('btn-sat').addEventListener('click', () => { currentDay = 'Jul 12'; updateTimetable(); });
+    document.getElementById('btn-sun').addEventListener('click', () => { currentDay = 'Jul 13'; updateTimetable(); });
+    document.getElementById('btn-jul15').addEventListener('click', () => { currentDay = 'Jul 15'; updateTimetable(); });
+    document.getElementById('btn-jul16').addEventListener('click', () => { currentDay = 'Jul 16'; updateTimetable(); });
+    document.getElementById('btn-jul17').addEventListener('click', () => { currentDay = 'Jul 17'; updateTimetable(); });
 
-        const eventBlock = document.createElement('div');
-        eventBlock.classList.add('event-block');
-        eventBlock.classList.add(event.location === 'Hong Kong' ? 'hong-kong' : 'macau');
-        eventBlock.style.gridColumnStart = Math.round(startCol);
-        eventBlock.style.gridColumnEnd = Math.round(endCol);
-        eventBlock.style.gridRow = row;
+    // Event listeners for location buttons
+    document.getElementById('btn-hk').addEventListener('click', () => { currentLocation = 'Hong Kong'; updateTimetable(); });
+    document.getElementById('btn-macau').addEventListener('click', () => { currentLocation = 'Macau'; updateTimetable(); });
 
-        // Display venue and event name
-        eventBlock.innerHTML = `<strong>${event.venue}:</strong><br>${event.name}`;
-
-        // Tooltip for full details
-        const tooltip = document.createElement('div');
-        tooltip.classList.add('tooltip');
-        tooltip.innerHTML = `<strong>${event.name}</strong><br>
-                             Venue: ${event.venue}<br>
-                             Time: ${formatTime(event.start)} - ${formatTime(event.end)}<br>
-                             Location: ${event.location}`;
-        eventBlock.appendChild(tooltip);
-
-        gridWrapper.appendChild(eventBlock);
-    });
-
-    timetableDisplay.appendChild(gridWrapper);
-}
-
-// Helper function to format time (e.g., 18.50 to 18:30)
-function formatTime(time) {
-    const hours = Math.floor(time);
-    const minutes = Math.round((time - hours) * 60);
-    return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`;
-}
-
-// Function to update active button styles
-function updateButtonStates() {
-    // Reset all day buttons
-    [btnFri, btnSat, btnSun, btnJul15, btnJul16, btnJul17].forEach(btn => {
-        btn.classList.remove('bg-blue-600', 'text-white');
-        btn.classList.add('bg-gray-300', 'text-gray-800');
-        btn.classList.remove('focus:ring-blue-300');
-        btn.classList.add('focus:ring-gray-400');
-    });
-    // Set active day button
-    document.getElementById(`btn-${currentDay}`).classList.remove('bg-gray-300', 'text-gray-800');
-    document.getElementById(`btn-${currentDay}`).classList.add('bg-blue-600', 'text-white');
-    document.getElementById(`btn-${currentDay}`).classList.remove('focus:ring-gray-400');
-    document.getElementById(`btn-${currentDay}`).classList.add('focus:ring-blue-300');
-
-    // Reset all location buttons
-    [btnHk, btnMacau].forEach(btn => {
-        btn.classList.remove('bg-blue-600', 'text-white');
-        btn.classList.add('bg-gray-300', 'text-gray-800');
-        btn.classList.remove('focus:ring-blue-300');
-        btn.classList.add('focus:ring-gray-400');
-    });
-    // Set active location button
-    document.getElementById(`btn-${currentLocation}`).classList.remove('bg-gray-300', 'text-gray-800');
-    document.getElementById(`btn-${currentLocation}`).classList.add('bg-blue-600', 'text-white');
-    document.getElementById(`btn-${currentLocation}`).classList.remove('focus:ring-gray-400');
-    document.getElementById(`btn-${currentLocation}`).classList.add('focus:ring-blue-300');
-}
-
-// Event listeners for day selection
-btnFri.addEventListener('click', () => { currentDay = 'fri'; updateTimetable(); });
-btnSat.addEventListener('click', () => { currentDay = 'sat'; updateTimetable(); });
-btnSun.addEventListener('click', () => { currentDay = 'sun'; updateTimetable(); });
-btnJul15.addEventListener('click', () => { currentDay = 'jul15'; updateTimetable(); });
-btnJul16.addEventListener('click', () => { currentDay = 'jul16'; updateTimetable(); });
-btnJul17.addEventListener('click', () => { currentDay = 'jul17'; updateTimetable(); });
-
-// Event listeners for location selection
-btnHk.addEventListener('click', () => { currentLocation = 'hong-kong'; updateTimetable(); });
-btnMacau.addEventListener('click', () => { currentLocation = 'macau'; updateTimetable(); });
-
-// Event listener for loading ICS data
-loadIcsBtn.addEventListener('click', loadIcsData);
-
-
-// Function to orchestrate updates
-function updateTimetable() {
-    renderTimetable();
-    updateButtonStates();
-}
-
-// Initial render when the page loads
-document.addEventListener('DOMContentLoaded', updateTimetable);
+    // Initial render
+    updateTimetable();
+});
