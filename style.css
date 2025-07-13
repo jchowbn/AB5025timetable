@@ -1,116 +1,94 @@
-/* Custom CSS for Inter font and general body styling */
 body {
     font-family: 'Inter', sans-serif;
-    background-color: #f0f2f5;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 20px;
 }
 
+/* Timetable container styles */
 .timetable-container {
-    background-color: #ffffff;
-    border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    width: 100%;
-    max-width: 1200px;
-    padding: 24px;
-    margin-top: 20px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+    width: 100%; /* Allow full width */
+    overflow-x: auto; /* Enable horizontal scrolling if content is too wide */
 }
 
-.time-axis {
+/* New wrapper for the grid to ensure min-width and proper grid layout */
+.grid-wrapper {
     display: grid;
-    grid-template-columns: repeat(12, 1fr); /* Adjust based on time range, 12 for 12 hours */
-    gap: 0px;
-    text-align: center;
-    padding: 0 16px; /* Adjust padding to align with event blocks */
-    position: sticky;
+    /* Use a min-width to ensure the timeline doesn't become too squished on small screens */
+    min-width: 900px; /* Ensures horizontal scroll appears if screen is smaller than this */
+    grid-template-rows: auto repeat(var(--num-events), minmax(60px, auto)); /* Adjust row height for events */
+    grid-template-columns: repeat(var(--num-hours), 1fr); /* Flexible columns */
+    gap: 1px; /* Gap between grid items */
+    background-color: #e2e8f0; /* Light gray for grid lines */
+    border-radius: 8px;
+    padding-top: 1px; /* Ensures top border effect */
+}
+
+/* Time labels (header row) */
+.time-labels {
+    grid-column: 1 / -1; /* Spans across all time columns */
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end; /* Align labels to the bottom of their row */
+    padding-bottom: 5px;
+    position: sticky; /* Keep time labels visible when scrolling horizontally */
     top: 0;
-    background-color: #fff;
-    z-index: 10;
-    border-bottom: 1px solid #e0e0e0;
-    padding-bottom: 8px;
-    margin-bottom: 16px;
+    z-index: 10; /* Ensure labels are above event blocks */
+    background-color: #fff; /* Match container background */
+    border-bottom: 1px solid #cbd5e0; /* Separator line */
+    font-size: 0.85rem; /* Slightly smaller for mobile readability */
 }
 
 .time-label {
-    font-size: 0.75rem; /* text-xs */
-    color: #6b7280; /* text-gray-500 */
-    padding-top: 4px;
+    flex: 1; /* Distribute space evenly */
+    text-align: center;
+    color: #4a5568;
+    font-weight: 500;
+    padding-top: 5px; /* Adjust padding for sticky header */
 }
 
-.event-row {
-    display: flex;
-    align-items: center;
-    margin-bottom: 8px;
-    position: relative;
-    min-height: 40px; /* Ensure rows have a minimum height */
-}
-
-.event-label {
-    width: 150px; /* Fixed width for labels */
-    flex-shrink: 0;
-    font-weight: 600; /* semi-bold */
-    color: #374151; /* text-gray-700 */
-    text-align: right;
-    padding-right: 16px;
-    font-size: 0.875rem; /* text-sm */
-}
-
-.event-timeline {
-    flex-grow: 1;
-    display: flex;
-    align-items: center;
-    position: relative;
-    height: 100%; /* Ensure timeline fills row height */
-    background-image: linear-gradient(to right, #e5e7eb 1px, transparent 1px); /* light grid lines */
-    background-size: calc((100% - 32px) / 12) 100%; /* Adjust grid size to match time axis */
-}
-
+/* Event blocks */
 .event-block {
-    background-color: #60a5fa; /* blue-400 */
+    background-color: #63b3ed; /* Default blue for Hong Kong */
     color: white;
-    padding: 8px 12px;
-    border-radius: 8px;
-    position: absolute;
-    min-height: 36px; /* Changed height to min-height */
+    border-radius: 6px;
+    padding: 6px 8px; /* Slightly smaller padding for mobile */
+    font-size: 0.75rem; /* Smaller font size for mobile */
+    overflow: hidden;
+    white-space: normal; /* Allow text wrapping */
+    text-overflow: ellipsis; /* Still use ellipsis for overflow on very short blocks */
+    word-wrap: break-word; /* Ensure words break if too long */
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.875rem; /* text-sm */
-    white-space: normal; /* Changed to normal to allow wrapping */
-    word-break: break-word; /* Ensure long words break */
-    overflow: visible; /* Changed to visible so text can wrap */
-    text-overflow: unset; /* Reset text-overflow */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease-in-out;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative; /* For tooltip positioning */
+    z-index: 5; /* Ensure blocks are above grid lines */
 }
 
-.event-block:hover {
-    transform: scale(1.02);
-    z-index: 5;
-}
-
-.tooltip {
+/* Tooltip styles */
+.event-block .tooltip {
     visibility: hidden;
-    background-color: rgba(0, 0, 0, 0.8);
+    opacity: 0;
+    background-color: rgba(0, 0, 0, 0.85);
     color: #fff;
     text-align: center;
     border-radius: 6px;
-    padding: 8px 12px;
+    padding: 8px; /* Adjust padding */
     position: absolute;
-    z-index: 100;
-    bottom: 125%; /* Position above the event block */
+    z-index: 20; /* Above event blocks */
+    bottom: 100%; /* Position above the event block */
     left: 50%;
     transform: translateX(-50%);
-    opacity: 0;
-    transition: opacity 0.3s, visibility 0.3s;
-    font-size: 0.8rem;
-    white-space: normal; /* Allow text wrapping in tooltip */
-    width: 200px; /* Set a fixed width for the tooltip */
+    transition: opacity 0.3s;
+    pointer-events: none; /* Allows clicks to pass through */
+    width: auto; /* Allow width to expand based on content */
+    max-width: 250px; /* Limit tooltip width */
+    white-space: normal; /* Ensure text wraps in tooltip */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
@@ -119,38 +97,37 @@ body {
     opacity: 1;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
+/* Specific colors for locations */
+.event-block.hong-kong {
+    background-color: #4CAF50; /* Green for Hong Kong */
+}
+
+.event-block.macau {
+    background-color: #FF9800; /* Orange for Macau */
+}
+
+/* Media Queries for larger screens (desktop enhancements) */
+@media (min-width: 768px) {
     .timetable-container {
-        padding: 16px;
-        margin-top: 10px;
+        padding: 30px; /* More padding on larger screens */
     }
-    .time-axis {
-        grid-template-columns: repeat(6, 1fr); /* Fewer columns for smaller screens */
-        padding: 0 8px;
+
+    .grid-wrapper {
+        min-width: unset; /* Remove min-width on desktop to allow it to fill 100% of container */
+        width: 100%; /* Ensure it fills container on desktop */
     }
-    .time-label {
-        font-size: 0.65rem;
+
+    .time-labels {
+        font-size: 1rem; /* Larger font for desktop */
     }
-    .event-row {
-        flex-direction: column; /* Stack label and timeline on small screens */
-        align-items: flex-start;
-        margin-bottom: 12px;
-    }
-    .event-label {
-        width: 100%;
-        text-align: left;
-        padding-right: 0;
-        margin-bottom: 4px;
-    }
-    .event-timeline {
-        width: 100%; /* Timeline takes full width */
-        min-height: 50px; /* Ensure timeline area is visible */
-        background-size: calc((100% - 16px) / 6) 100%; /* Adjust grid size */
-    }
+
     .event-block {
-        padding: 6px 8px;
-        font-size: 0.75rem;
-        min-height: 30px; /* Changed height to min-height */
+        padding: 8px 10px; /* Larger padding on desktop */
+        font-size: 0.875rem; /* Larger font for desktop */
+    }
+
+    .event-block .tooltip {
+        font-size: 0.875rem; /* Larger font for tooltip on desktop */
+        max-width: 300px;
     }
 }
